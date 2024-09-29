@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <%- include('../template/head.ejs'); %>
+        <script src='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js'></script>
+        <link href='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css' rel='stylesheet' />
+        <style>
+            #map {
+                width: 100%;
+                height: 80vh;
+                position: relative;
+            }
+        </style>
+</head>
+
+<body>
+    <%- include('../template/header'); %>
+        <!-- Single Page Header start -->
+        <div class="container-fluid page-header py-5">
+            <h1 class="text-center text-white display-6">PETA UMKM</h1>
+        </div>
+        <!-- Single Page Header End -->
+        <!-- Fruits Shop Start-->
+        <div class="container-fluid fruite py-5">
+            <div class="container py-5">
+                <h1 class="mb-4">PETA UMKM</h1>
+                <div class="jumbotron">
+                    <div class="map">
+                        <div id="map"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <%- include('../template/footer'); %>
+        </footer>
+        <%- include('../template/script'); %>
+            <script src=asset/js/maps.js> </script>
+</body>
+
+</html>
