@@ -13,12 +13,12 @@
     });
     element.parentsUntil(".sidebar-nav").each(function (index) {
         if ($(this).is("li") && $(this).children("a").length !== 0) {
-            $(this).children("a").addClass("active");
+            $(this).children("a").addClass("asset/lib/Kaiadmin");
             $(this).parent("ul#sidebarnav").length === 0 ?
-                $(this).addClass("active") :
-                $(this).addClass("active");
+                $(this).addClass("asset/lib/Kaiadmin") :
+                $(this).addClass("asset/lib/Kaiadmin");
         } else if (!$(this).is("ul") && $(this).children("a").length === 0) {
-            $(this).addClass("active");
+            $(this).addClass("asset/lib/Kaiadmin");
 
         } else if ($(this).is("ul")) {
             $(this).addClass('in');

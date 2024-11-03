@@ -29,4 +29,16 @@ module.exports = {
         };
         res.render("admin/admin", data);
     },
+    adminmaps: (req, res) => {
+        let data = {
+            title: "Maps Admin | WEB GIS",
+        };
+        res.render("admin/maps", data);
+    },
+    adminarticle: (req, res) => {
+        let data = {
+            title: "Article  | WEB GIS",
+        };
+        res.render("admin/article", data);
+    }
 };

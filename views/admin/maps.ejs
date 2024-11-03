@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <%- include('../admintemp/head.ejs'); %>
+        <script src='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js'></script>
+        <link href='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css' rel='stylesheet' />
+        <style>
+            #map {
+                width: 100%;
+                height: 80vh;
+                position: relative;
+            }
+        </style>
+</head>
+
+<body>
+    <div class="wrapper" data-background-color="dark">
+        <%- include('../admintemp/header'); %>
+
+            <div class="main-panel">
+                <div class="main-header">
+                    <%- include('../admintemp/main-header'); %>
+                </div>
+                <div class="container">
+                    <div class="page-inner">
+                        <div class="jumbotron">
+                            <div class="map">
+                                <div id="map"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+
+    <%- include('../admintemp/script'); %>
+        <script src=/asset/js/maps.js> </script>
+</body>
+
+</html>

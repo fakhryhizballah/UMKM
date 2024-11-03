@@ -1,6 +1,8 @@
 $(function () {
     let current = location.pathname;
-    $('.nav-item a.nav-link').each(function () {
+    console.log(current);
+    $('.nav-item ').each(function () {
+        console.log($(this));
         let $this = $(this);
         if ($this.attr('href') === current) {
             $this.addClass('active');

@@ -3,6 +3,7 @@
 
 <head>
     <%- include('../admintemp/head.ejs'); %>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.8/sweetalert2.min.css" rel="stylesheet" />
 </head>
 
 <body class="bg-light">
@@ -19,11 +20,11 @@
                             <p class="mb-6">Login Admin UMKM</p>
                         </div>
                         <!-- Form -->
-                        <form action="admin">
+                        <form>
                             <!-- Username -->
                             <div class="mb-3">
                                 <label for="email" class="form-label">Username or email</label>
-                                <input type="email" id="email" class="form-control" name="email"
+                                <input type="text" id="username" class="form-control" name="email"
                                     placeholder="Email address here" required="">
                             </div>
                             <!-- Password -->
@@ -51,6 +52,45 @@
     </div>
 
     <%- include('../admintemp/script'); %>
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.8/sweetalert2.min.js"></script>
+    <script>
+        $('form').on('submit', function (event) {
+            event.preventDefault();
+            const username = $('#username').val();
+            const password = $('#password').val();
+
+            // ajax request /api/verify-otp
+            $.ajax({
+                url: '/login',
+                method: 'POST',
+                data: {
+                    username: username,
+                    password: password,
+                },
+                success: function (response) {
+                    console.log(response);
+                    swal.fire({
+                        icon: 'success',
+                        title: response.message,
+                        text: 'Anda telah berhasil masuk.',
+                    }).then(() => {
+                        // Redirect ke halaman setelah login berhasil
+                        window.location.href = '/admin';
+                    });
+                },
+                error: function (xhr, status, error) {
+                    console.log(xhr.responseJSON.message);
+                    // Tampilkan pesan error dari response API menggunakan SweetAlert2
+                    swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: xhr.responseJSON.message,
+                    });
+                },
+            });
+        });
+    </script>
 </body>
 
 </html>
