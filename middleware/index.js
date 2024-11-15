@@ -5,9 +5,6 @@ module.exports = {
         try {
             const token = req.cookies.token;
             res.cookie("tokens", "a", {
-                domain: ".rsudaa.singkawangkota.go.id",
-                secure: false,
-                maxAge: 1000 * 60 * 60 * 24 * 7,
                 httpOnly: true,
             });
             if (!token) {

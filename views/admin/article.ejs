@@ -3,6 +3,8 @@
 
 <head>
     <%- include('../admintemp/head.ejs'); %>
+<link rel="stylesheet" href=" https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.min.css" />
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -15,13 +17,69 @@
                 </div>
                 <div class="container">
                     <div class="page-inner">
-
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title">Tulis Artikel</div>
+                            </div>
+                            <div class="card-body">
+                                <form id="formArtikel" class="form-horizontal">
+                                    <input type="hidden" id="id" name="id">
+                                    <div class="form-group">
+                                        <label for="thumbnail">Thumbnail</label>
+                                        <input type="file" class="form-control" id="thumbnail" placeholder="Thumbnail">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="title">Title</label>
+                                        <input type="text" class="form-control" id="title" placeholder="Title">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="description">Description</label>
+                                        <textarea class="form-control" id="description" rows="2"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="description">Content</label>
+                                        <textarea class="form-control" id="content" rows="4"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="description">Hashtag</label>
+                                        <select class="js-example-basic-multiple form-select" id="label" name="states[]" multiple="multiple">
+                                        </select>
+                                    </div>
+                                    <button id="btnSubmit" class="btn btn-success">Submit</button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title">Daftar Artikel</div>
+                            </div>
+                            <div class="card-body">
+                                <table class="table table-hover" id="artikelTabel">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">thumbnail</th>
+                                            <th scope="col">title</th>
+                                            <th scope="col">description</th>
+                                            <th scope="col">action</th>
+                                            <th scope="col">Publish</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
     </div>
 
     <%- include('../admintemp/script'); %>
+    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
+    <script src="/asset/js/admin/articles.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="/asset/js/admin/article.js"></script>
 </body>
 
 </html>

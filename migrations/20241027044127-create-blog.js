@@ -28,15 +28,7 @@ module.exports = {
       },
       category: {
         type: Sequelize.STRING,
-        allowNull: true,
-        references: {
-          model: {
-            tableName: 'Categories'
-          },
-          key: 'slug',
-        },
-        onDelete: "CASCADE",
-        onUpdate: "CASCADE"
+        allowNull: true
       },
       author: {
         type: Sequelize.STRING,

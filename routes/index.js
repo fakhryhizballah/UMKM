@@ -2,6 +2,9 @@ const express = require('express');
 const router = express.Router();
 const controller = require('../controllers');
 const admin = require('../controllers/admin');
+const article = require('../controllers/article');
+const { upload } = require('../middleware/upload');
+
 
 router.get('/', controller.home);
 router.get('/article', controller.article);
@@ -12,6 +15,18 @@ router.post('/login', admin.verifyLogin);
 router.get('/admin', controller.admin);
 router.get('/maps/umkm', controller.adminmaps);
 router.get('/admin/article', controller.adminarticle);
+router.post('/admin/article/add', upload.single('thumbnail'), admin.addArticle);
+router.delete('/admin/article/:id', admin.dellArticle);
+router.put('/admin/article/:id', admin.updatePublished);
+router.get('/admin/article/:id', admin.getArtikel);
+router.post('/admin/article/:id', upload.single('thumbnail'), admin.updateArtikel);
+router.get('/admin/hashtag', admin.getHashtag);
+router.get('/admin/articles', admin.articles);
+
+
+
+router.get('/api/article/category', article.findAllcategory);
+
 
 
 module.exports = router;

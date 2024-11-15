@@ -31,6 +31,7 @@ app.use("/asset/js/", express.static(path.join(__dirname + '/public/js/')));
 app.use("/asset/css/", express.static(path.join(__dirname + '/public/css/')));
 app.use("/asset/img/", express.static(path.join(__dirname + '/public/img/')));
 app.use("/asset/lib/", express.static(path.join(__dirname + '/public/lib/')));
+app.use("/asset/cdn/", express.static(path.join(__dirname + '/public/cache/')));
 
 app.use('/', routes);
 
