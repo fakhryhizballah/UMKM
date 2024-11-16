@@ -70,9 +70,9 @@ module.exports = {
             console.log(label);
             let categoris = [];
             for (let x of label) {
-                let slug = x.replace(/\s+/g, '-').toLowerCase();
-                console.log(slug);
-                // categoris.push(slug);
+                let slug = x.toLowerCase()
+                    .replace(/[^a-z\s]/g, "") // Hapus karakter selain huruf dan spasi
+                    .replace(/\s+/g, "-");    // Ganti spasi dengan "-"
                 let category = await Category.findOne({
                     where: {
                         slug: slug
@@ -96,7 +96,9 @@ module.exports = {
             console.log(decoded);
             let addBlog = await Blog.create({
                 title: body.title,
-                slug: body.title.replace(/\s+/g, '-').toLowerCase(),
+                slug: body.title.x.toLowerCase()
+                    .replace(/[^a-z\s]/g, "")
+                    .replace(/\s+/g, "-"),
                 description: body.description,
                 content: body.content,
                 thumbnail: body.thumbnail,
@@ -238,7 +240,9 @@ module.exports = {
                 console.log(label);
                 let categoris = [];
                 for (let x of label) {
-                    let slug = x.replace(/\s+/g, '-').toLowerCase();
+                    let slug = x.toLowerCase()
+                        .replace(/[^a-z\s]/g, "")
+                        .replace(/\s+/g, "-");
                     console.log(slug);
                     categoris.push(slug);
                     let category = await Category.findOne({
@@ -261,7 +265,9 @@ module.exports = {
             }
             await blog.update({
                 title: body.title,
-                slug: body.title.replace(/\s+/g, '-').toLowerCase(),
+                slug: body.title.toLowerCase()
+                    .replace(/[^a-z\s]/g, "")
+                    .replace(/\s+/g, "-"),
                 description: body.description,
                 content: body.content
             })

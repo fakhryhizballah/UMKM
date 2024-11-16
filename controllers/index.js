@@ -1,3 +1,4 @@
+const { User, Blog, Category } = require("../models");
 module.exports = {
     home: (req, res) => {
         let data = {
@@ -5,11 +6,36 @@ module.exports = {
         };
         res.render("user/home", data);
     },
-    article: (req, res) => {
+    articles: (req, res) => {
         let data = {
-            title: "article | WEB GIS",
+            title: "articles | WEB GIS",
         };
-        res.render("user/article", data);
+        res.render("user/articles", data);
+    },
+    article: async (req, res) => {
+        let id = req.params.id;
+        console.log(id);
+        try {
+            let artikel = await Blog.findOne({
+                where: {
+                    slug: id
+                }
+            })
+            console.log(artikel);
+            if (artikel == null) {
+                res.redirect('/articles');
+            }
+            let data = {
+                title: "article | WEB GIS",
+                artikel
+            };
+            res.render("user/article", data);
+
+        } catch (err) {
+            console.log(err);
+            res.redirect('/articles');
+        }
+
     },
     maps: (req, res) => {
         let data = {

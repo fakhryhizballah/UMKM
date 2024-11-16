@@ -7,7 +7,8 @@ const { upload } = require('../middleware/upload');
 
 
 router.get('/', controller.home);
-router.get('/article', controller.article);
+router.get('/articles', controller.articles);
+router.get('/articles/detail/:id', controller.article);
 router.get('/maps', controller.maps);
 
 router.get('/login', controller.login);
@@ -26,6 +27,7 @@ router.get('/admin/articles', admin.articles);
 
 
 router.get('/api/article/category', article.findAllcategory);
+router.get('/api/article/topic/:id', article.findCategory);
 
 
 

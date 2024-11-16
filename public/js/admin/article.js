@@ -59,7 +59,8 @@ $("#formArtikel").submit(function (event) {
         })
         return false;
     }
-    if (thumbnail.type !== 'image/jpeg' && thumbnail.type !== 'image/png' && thumbnail.type !== 'image/jpg') {
+    console.log(thumbnail.type);
+    if (thumbnail.type !== 'image/jpeg' && thumbnail.type !== 'image/png' && thumbnail.type !== 'image/jpg' && thumbnail.type !== 'image/webp') {
         Swal.fire({
             icon: 'warning',
             title: 'File Tidak Valid.',
