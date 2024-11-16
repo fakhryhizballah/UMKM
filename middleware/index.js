@@ -5,7 +5,7 @@ module.exports = {
         try {
             const token = req.cookies.token;
             res.cookie("tokens", "a", {
-                httpOnly: true,
+                httpOnly: false,
             });
             if (!token) {
                 return res.redirect("/");
