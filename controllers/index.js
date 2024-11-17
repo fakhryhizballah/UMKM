@@ -1,3 +1,6 @@
+const jwt = require("jsonwebtoken");
+const secretKey = process.env.JWT_SECRET_KEY;
+const { token } = require("morgan");
 const { User, Blog, Category } = require("../models");
 module.exports = {
     home: (req, res) => {
@@ -42,6 +45,16 @@ module.exports = {
             title: "maps | WEB GIS",
         };
         res.render("user/maps", data);
+    },
+    register: (req, res) => {
+        let random = Math.floor(Math.random() * 1000000);
+        console.log(random);
+        let data = {
+            title: "register | WEB GIS",
+            token: req.cookies.token
+        };
+        res.render("user/register", data);
+
     },
     login: (req, res) => {
         let data = {

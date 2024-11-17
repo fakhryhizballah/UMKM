@@ -10,6 +10,7 @@ router.get('/', controller.home);
 router.get('/articles', controller.articles);
 router.get('/articles/detail/:id', controller.article);
 router.get('/maps', controller.maps);
+router.get('/register', controller.register);
 
 router.get('/login', controller.login);
 router.post('/login', admin.verifyLogin);

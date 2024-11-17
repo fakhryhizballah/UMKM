@@ -31,3 +31,13 @@ Halaman Admin
   atribut akun user UMKM : nama,NIK,kontak,status(aktif/tidak aktif) kategori, gambar umkm
 
 4.Berita UMKM (CRUD)
+
+
+Nb. 
+Kategori UMKM ade 7 : 
+makanan, kerajinanan, pakaian dll (dll nya masih di pastikan al) 
+Level UMKM ada 7 juga 
+Level 1 - Level 7 
+Grafik UMKM per kecamatan dan level ada dibawah ini yah al
+
+Level dan kategori 2 hal yang berbeda yah al

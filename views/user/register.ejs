@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <%- include('../template/head.ejs'); %>
+</head>
+
+<body>
+    <%- include('../template/header'); %>
+        <!-- Single Page Header start -->
+        <div class="container-fluid page-header py-5">
+            <h1 class="text-center text-white display-6">Daftar</h1>
+            <ol class="breadcrumb justify-content-center mb-0">
+                <li class="breadcrumb-item"><a href="#">UMKM</a></li>
+            </ol>
+        </div>
+        <!-- Single Page Header End -->
+        <!-- Fruits Shop Start-->
+        <div class="container-fluid fruite py-5">
+            <div class="container py-5">
+                <div class="p-5 bg-light rounded">
+                    <div class="row g-4">
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="text-center mx-auto">
+                                        <h1 class="text-primary">Daftar Badan Usaha Anda</h1>
+                                        <p class="mb-4">"Daftarkan lokasi usaha Anda sekarang dan jadilah bagian dari
+                                            komunitas bisnis yang lebih luas! Tingkatkan visibilitas
+                                            dan jangkauan usaha Anda dengan bergabung bersama kami. Yuk, daftar
+                                            sekarang!"</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="text-left mx-auto">
+                                        <h3 class="text-primary">Informasi Badan Usaha</h3>
+                                        <form action="#">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <div class="row">
+                                                        <div class="col-md-12 col-lg-6">
+                                                            <div class="form-item w-100">
+                                                                <label
+                                                                    class="form-label my-3">Username<sup>*</sup></label>
+                                                                <input type="text" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 col-lg-6">
+                                                            <div class="form-item w-100">
+                                                                <label class="form-label my-3">Nama<sup>*</sup></label>
+                                                                <input type="text" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-item">
+                                                        <label class="form-label my-3">NoWa<sup>*</sup></label>
+                                                        <input type="number" class="form-control">
+                                                    </div>
+                                                    <div class="form-item">
+                                                        <label class="form-label my-3">Nama Badan
+                                                            Usaha<sup>*</sup></label>
+                                                        <input type="text" class="form-control">
+                                                    </div>
+                                                    <div class="form-item">
+                                                        <label class="form-label my-3">NPWP
+                                                            <sup>(Optional)</sup></label>
+                                                        <input type="text" class="form-control"
+                                                            placeholder="Nomor Pokok Wajib Pajak">
+                                                    </div>
+                                                    <div class="form-item">
+                                                        <label class="form-label my-3">Nomor Induk Berusaha (NIB)
+                                                            <sup>(Optional)</sup></label>
+                                                        <input type="text" class="form-control"
+                                                            placeholder="Daftar NIB di https://oss.go.id">
+                                                    </div>
+                                                    <div class="form-item">
+                                                        <label class="form-label my-3">Omzet Tahunan<sup>*</sup></label>
+                                                        <select class="form-select" aria-label="Default select example">
+                                                            <option selected>Pilih Omzet</option>
+                                                            <option value="<= 300.000.000">
+                                                                <= 300.000.000</option>
+                                                            <option value="300.000.000 - 2.500.000.000">300.000.000 -
+                                                                2.500.000.000</option>
+                                                            <option value="2.500.000.000 - 50.000.000.000">2.500.000.000
+                                                                - 50.000.000.000</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-item">
+                                                        <label class="form-label my-3">Kategori
+                                                            Usaha<sup>*</sup></label>
+                                                        <select class="form-select" aria-label="Default select example">
+                                                            <option selected>Pilih Kategori Usaha</option>
+                                                            <option value="Makanan">Makanan</option>
+                                                            <option value="Minuman">Minuman</option>
+                                                            <option value="Kerajinan">Kerajinan</option>
+                                                            <option value="Pakaian">Pakaian</option>
+                                                            <option value="Aksesoris">Aksesoris</option>
+                                                            <option value="Kosmetik">Kosmetik</option>
+                                                            <option value="Elektronik">Elektronik</option>
+                                                            <option value="Furniture">Furniture</option>
+                                                            <option value="Lain-lain">Lain-lain</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-item">
+                                                        <label class="form-label my-3">Level
+                                                            Usaha<sup>*</sup></label>
+                                                        <select class="form-select" aria-label="Default select example">
+                                                            <option selected>Pilih Level Usaha</option>
+                                                            <option value="1">1</option>
+                                                            <option value="2">2</option>
+                                                            <option value="3">3</option>
+                                                            <option value="4">4</option>
+                                                            <option value="5">5</option>
+                                                            <option value="6">6</option>
+                                                            <option value="7">7</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-item">
+                                                        <label class="form-label my-3">Logo Usaha
+                                                            <sup>*</sup></label>
+                                                        <input type="email" class="form-control">
+                                                    </div>
+                                                    <div class="form-item">
+                                                        <label class="form-label my-3">Deskripsi Usaha
+                                                            <sup>*</sup></label>
+                                                        <textarea name="text" class="form-control" spellcheck="false"
+                                                            rows="3"></textarea>
+                                                    </div>
+                                                    <div class="form-item">
+                                                        <label class="form-label my-3">Deskripsi Produk & Jasa
+                                                            <sup>*</sup></label>
+                                                        <textarea name="text" class="form-control" spellcheck="false"
+                                                            rows="5"></textarea>
+                                                    </div>
+                                                    <div class="form-item">
+                                                        <label class="form-label my-3">Foto Produk
+                                                            <sup>*</sup></label>
+                                                        <input type="email" class="form-control">
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12 col-lg-6">
+                                                            <div class="form-item w-100">
+                                                                <label
+                                                                    class="form-label my-3">Latitude<sup>*</sup></label>
+                                                                <input type="text" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 col-lg-6">
+                                                            <div class="form-item w-100">
+                                                                <label
+                                                                    class="form-label my-3">Longitude<sup>*</sup></label>
+                                                                <input type="text" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-check my-3">
+                                                        <input type="checkbox" class="form-check-input" id="Account-1"
+                                                            name="Accounts" value="Accounts">
+                                                        <label class="form-check-label" for="Account-1">Create an
+                                                            account?</label>
+                                                    </div>
+                                                    <hr>
+                                                    <div class="form-check my-3">
+                                                        <input class="form-check-input" type="checkbox" id="Address-1"
+                                                            name="Address" value="Address">
+                                                        <label class="form-check-label" for="Address-1">Ship to a
+                                                            different address?</label>
+                                                    </div>
+                                                    <div class="form-item">
+                                                        <textarea name="text" class="form-control" spellcheck="false"
+                                                            cols="30" rows="11"
+                                                            placeholder="Oreder Notes (Optional)"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="col-lg-8">
+                                    <p class="mb-4">"Daftarkan lokasi usaha Anda sekarang dan jadilah bagian dari
+                                        komunitas bisnis yang lebih luas! Tingkatkan visibilitas
+                                        dan jangkauan usaha Anda dengan bergabung bersama kami. Yuk, daftar
+                                        sekarang!"</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Fruits Shop End-->
+
+        <footer>
+            <%- include('../template/footer'); %>
+        </footer>
+        <%- include('../template/script'); %>
+            <script src="/asset/js/user/register.js"></script>
+</body>
+
+</html>
