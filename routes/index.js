@@ -2,8 +2,9 @@ const express = require('express');
 const router = express.Router();
 const controller = require('../controllers');
 const admin = require('../controllers/admin');
+const user = require('../controllers/user');
 const article = require('../controllers/article');
-const { upload } = require('../middleware/upload');
+const { upload, uploadMultiple } = require('../middleware/upload');
 
 
 router.get('/', controller.home);
@@ -11,6 +12,9 @@ router.get('/articles', controller.articles);
 router.get('/articles/detail/:id', controller.article);
 router.get('/maps', controller.maps);
 router.get('/register', controller.register);
+
+
+router.post('/user/register', uploadMultiple.fields([{ name: "logousaha", maxCount: 1 }, { name: "fotoproduk", maxCount: 10 }]), user.register);
 
 router.get('/login', controller.login);
 router.post('/login', admin.verifyLogin);
