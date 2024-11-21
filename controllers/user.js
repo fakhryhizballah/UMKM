@@ -40,11 +40,12 @@ module.exports = {
                 entityId: entity.id,
                 lat: body.lat,
                 lng: body.lng,
-                alamat: body.alamat,
-                prov: body.prov,
-                kota: body.kota,
-                kec: body.kec,
-                kel: body.kel,
+                address: body.alamat,
+                province: body.prov,
+                regency: body.kota,
+                district: body.kec,
+                village: body.kel,
+                status: "pending",
             }, { transaction: t });
             for (let x of fotoproduk) {
                 await Product.create({
