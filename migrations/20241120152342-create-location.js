@@ -13,10 +13,10 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       lat: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING,
       },
       lng: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       address: {
         type: Sequelize.STRING
@@ -31,7 +31,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       village: {
-        type: Sequelize.INTEGER
+        type: Sequelize.BIGINT
       },
       status: {
         type: Sequelize.ENUM('rejected', 'accepted', 'pending')
