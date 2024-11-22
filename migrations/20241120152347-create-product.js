@@ -10,7 +10,15 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       entityId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: {
+            tableName: 'Entities'
+          },
+          key: 'id',
+        },
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE"
       },
       url: {
         type: Sequelize.STRING

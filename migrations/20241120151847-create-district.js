@@ -9,14 +9,23 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      id: {
-        type: Sequelize.INTEGER
+      idDistrict: {
+        type: Sequelize.INTEGER,
+        unique: true
       },
       name: {
         type: Sequelize.STRING
       },
       regencyId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: {
+            tableName: 'Regencies'
+          },
+          key: 'idRegency',
+        },
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE"
       },
       createdAt: {
         allowNull: false,

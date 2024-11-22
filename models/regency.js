@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Regency.init({
-    // id: DataTypes.INTEGER,
+    idRegency: DataTypes.INTEGER,
     name: DataTypes.STRING,
     provinceId: DataTypes.INTEGER
   }, {

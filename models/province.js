@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Province.init({
-    // id: DataTypes.INTEGER,
+    idProvince: DataTypes.INTEGER,
     name: DataTypes.STRING
   }, {
     sequelize,

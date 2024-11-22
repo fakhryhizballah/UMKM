@@ -1,14 +1,14 @@
-let config = {
-    method: 'get',
-    maxBodyLength: Infinity,
-    url: 'http://10.8.0.4:9080/api/bpjs/peserta/getfinger?Tglpelayanan=2024-11-19&Nokartu=0002421395469',
-    headers: {}
-};
+// https://emsifa.github.io/api-wilayah-indonesia/api/regency/{regencyId}.json
 
-axios.request(config)
-    .then((response) => {
-        console.log(JSON.stringify(response.data));
-    })
-    .catch((error) => {
-        console.log(error);
-    });
+const axios = require("axios");
+async function getGeoid(type, id) {
+    let config = {
+        method: 'get',
+        url: `https://emsifa.github.io/api-wilayah-indonesia/api/${type}/${id}.json`,
+        headers: {}
+    };
+
+    let response = await axios.request(config);
+    return response.data
+}
+module.exports = { getGeoid }

@@ -44,10 +44,12 @@ module.exports = {
     checkLogin: (req, res, next) => {
         try {
             const token = req.cookies.token;
+
             const secretKey = process.env.JWT_SECRET_KEY;
             const decoded = jwt.verify(token, secretKey);
-            if (decoded) {
-                return res.redirect("/admin");
+            console.log("decoded", decoded);
+            if (!decoded) {
+                return res.redirect("/");
             }
 
             next();

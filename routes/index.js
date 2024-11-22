@@ -5,6 +5,7 @@ const admin = require('../controllers/admin');
 const user = require('../controllers/user');
 const article = require('../controllers/article');
 const { upload, uploadMultiple } = require('../middleware/upload');
+const middeleware = require('../middleware');
 
 
 router.get('/', controller.home);
@@ -20,7 +21,7 @@ router.get('/login', controller.login);
 router.post('/login', admin.verifyLogin);
 router.get('/admin', controller.admin);
 router.get('/maps/umkm', controller.adminmaps);
-router.get('/admin/article', controller.adminarticle);
+router.get('/admin/article', middeleware.checkLogin, controller.adminarticle);
 router.post('/admin/article/add', upload.single('thumbnail'), admin.addArticle);
 router.delete('/admin/article/:id', admin.dellArticle);
 router.put('/admin/article/:id', admin.updatePublished);
