@@ -1,6 +1,6 @@
 $("#formRegister").submit(function (event) {
     event.preventDefault();
-    console.log("test");
+    $('#btnSubmit').prop('disabled', true);
     let datafrom = new FormData();
     datafrom.append('username', $('#username').val());
     datafrom.append('name', $('#name').val());
@@ -38,7 +38,7 @@ $("#formRegister").submit(function (event) {
         processData: false,
         contentType: false,
         success: function (response) {
-            console.log(response);
+            $('#btnSubmit').prop('disabled', false);
             if (response.error) {
                 Swal.fire({
                     icon: 'error',
@@ -52,9 +52,12 @@ $("#formRegister").submit(function (event) {
                     text: response.message,
                 })
             }
+            formRegister.reset();
         },
         error: function (xhr, status, error) {
             console.log(xhr);
+            $('#btnSubmit').prop('disabled', false);
+
             // let pesan = JSON.parse(xhr.responseText);
             // Tampilkan pesan error dari response API menggunakan SweetAlert2
             Swal.fire({
