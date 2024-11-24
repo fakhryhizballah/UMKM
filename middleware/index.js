@@ -47,7 +47,6 @@ module.exports = {
 
             const secretKey = process.env.JWT_SECRET_KEY;
             const decoded = jwt.verify(token, secretKey);
-            console.log("decoded", decoded);
             if (!decoded) {
                 return res.redirect("/");
             }
@@ -55,7 +54,7 @@ module.exports = {
             next();
         } catch (err) {
             res.clearCookie("token");
-            next();
+            return res.redirect("/");
         }
     },
     logout: (req, res) => {
