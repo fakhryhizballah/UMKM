@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <%- include('../admintemp/head.ejs'); %>
+        <link rel="stylesheet" href=" https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.min.css" />
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="wrapper" data-background-color="dark">
+        <%- include('../admintemp/header'); %>
+
+            <div class="main-panel">
+                <div class="main-header">
+                    <%- include('../admintemp/main-header'); %>
+                </div>
+                <div class="container">
+                    <div class="page-inner">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title">Data UMKM</div>
+                            </div>
+                            <div class="card-body">
+                                <div style="overflow-x:auto;">
+                                    <table class="table table-hover " id="tabelUMKM">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Username</th>
+                                                <th scope="col">No Whatsapp</th>
+                                                <th scope="col">Email</th>
+                                                <th scope="col">Nama Badan Usaha</th>
+                                                <th scope="col">Logo Usaha</th>
+                                                <th scope="col">Omzet Tahunan</th>
+                                                <th scope="col">Kategori Usaha</th>
+                                                <th scope="col">Level Usaha</th>
+                                                <th scope="col">Alamat</th>
+                                                <th scope="col">Detail</th>
+                                                <th scope="col">Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+    </div>
+    <%- include('../admintemp/script'); %>
+        <script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
+        <script src="/asset/js/admin/dataUMKM.js"></script>
+</body>
+
+</html>

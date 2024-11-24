@@ -22,13 +22,19 @@ router.post('/login', admin.verifyLogin);
 router.get('/admin', controller.admin);
 router.get('/maps/umkm', controller.adminmaps);
 router.get('/admin/article', middeleware.checkLogin, controller.adminarticle);
-router.post('/admin/article/add', upload.single('thumbnail'), admin.addArticle);
-router.delete('/admin/article/:id', admin.dellArticle);
-router.put('/admin/article/:id', admin.updatePublished);
+router.post('/admin/article/add', middeleware.checkLogin, upload.single('thumbnail'), admin.addArticle);
+router.delete('/admin/article/:id', middeleware.checkLogin, admin.dellArticle);
+router.put('/admin/article/:id', middeleware.checkLogin, admin.updatePublished);
 router.get('/admin/article/:id', admin.getArtikel);
-router.post('/admin/article/:id', upload.single('thumbnail'), admin.updateArtikel);
+router.post('/admin/article/:id', middeleware.checkLogin, upload.single('thumbnail'), admin.updateArtikel);
 router.get('/admin/hashtag', admin.getHashtag);
 router.get('/admin/articles', admin.articles);
+
+router.get('/admin/umkm', middeleware.checkLogin, controller.adminUMKM);
+router.get('/admin/umkm/entity/:id', middeleware.checkLogin, controller.adminDetailUMKM);
+router.get('/admin/umkm/getEntity/:id', admin.getEntity);
+router.put('/admin/umkm/getEntity/:id', admin.updateEntity);
+router.get('/admin/umkm/getEntity', middeleware.checkLogin, admin.getAllEntity);
 
 
 

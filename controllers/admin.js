@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 const axios = require("axios");
-const { User, Blog, Category } = require("../models");
+const { User, Blog, Category, Province, Regency, District, Village, Entity, Location, Product } = require("../models");
 const { Op } = require("sequelize");
 const secretKey = process.env.JWT_SECRET_KEY;
 const payload = {
@@ -308,6 +308,107 @@ module.exports = {
             return res.status(200).json({
                 error: false,
                 message: "Data Hashtag",
+                data: data
+            });
+        } catch (err) {
+            console.log(err);
+            return res.status(400).json({
+                error: true,
+                message: "something went wrong!",
+            });
+        }
+    },
+    getAllEntity: async (req, res) => {
+        try {
+            let data = await Entity.findAll({
+                include: [{
+                    model: Location,
+                    attributes: ['id', 'address', 'status']
+                }]
+            })
+            return res.status(200).json({
+                error: false,
+                message: "Data Entity",
+                data: data
+            });
+        } catch (err) {
+            console.log(err);
+            return res.status(400).json({
+                error: true,
+                message: "something went wrong!",
+            });
+        }
+    },
+    getEntity: async (req, res) => {
+        let id = req.params.id;
+        console.log(id);
+        try {
+            let buffer = Buffer.from(id, 'base64');
+            let idDecoded = buffer.toString('utf8');
+            idDecoded = idDecoded.split("#");
+            let idEntity = Buffer.from(idDecoded[1], 'base64')
+            idEntity = idEntity.toString('utf8');
+            let dataentity = await Entity.findOne({
+                where: {
+                    id: idEntity
+                },
+                include: [{
+                    model: Location,
+                    // attributes: ['id', 'address', 'status']
+                    include: [{
+                        model: Province,
+                        as: 'prov'
+                    },
+                    {
+                        model: Regency,
+                        as: 'regen'
+                    },
+                    {
+                        model: District,
+                        as: 'dist'
+                    },
+                    {
+                        model: Village,
+                        as: 'vill'
+                    }
+                    ],
+
+                }, {
+                    model: Product,
+                    attributes: ['id', 'url']
+                }]
+            })
+            return res.status(200).json({
+                error: false,
+                message: "Data Entity",
+                data: dataentity
+            });
+        } catch (err) {
+            console.log(err);
+            return res.status(400).json({
+                error: true,
+                message: "something went wrong!",
+            });
+        }
+    },
+    updateEntity: async (req, res) => {
+        let id = req.params.id;
+        try {
+            let buffer = Buffer.from(id, 'base64');
+            let idDecoded = buffer.toString('utf8');
+            idDecoded = idDecoded.split("#");
+            let idEntity = Buffer.from(idDecoded[1], 'base64')
+            idEntity = idEntity.toString('utf8');
+            let data = await Location.update(
+                { status: req.body.status },
+                {
+                    where: {
+                        entityId: idEntity
+                    }
+                })
+            return res.status(200).json({
+                error: false,
+                message: "Entity berhasil diubah!",
                 data: data
             });
         } catch (err) {

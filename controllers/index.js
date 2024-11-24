@@ -79,5 +79,19 @@ module.exports = {
             title: "Article  | WEB GIS",
         };
         res.render("admin/article", data);
-    }
+    },
+    adminUMKM: (req, res) => {
+        let data = {
+            title: "Verifikasi UMKM  | WEB GIS",
+        };
+        res.render("admin/umkm", data);
+    },
+    adminDetailUMKM: (req, res) => {
+        let id = req.params.id;
+        let data = {
+            title: "Verifikasi UMKM  | WEB GIS",
+            id: id
+        };
+        res.render("admin/detailumkm", data);
+    },
 };

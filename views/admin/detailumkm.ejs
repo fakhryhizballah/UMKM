@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <%- include('../admintemp/head.ejs'); %>
+        <link rel="stylesheet" href="/asset/css/admin/detailumkm.css">
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+            integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+
+</head>
+
+<body>
+    <div class="wrapper" data-background-color="dark">
+        <%- include('../admintemp/header'); %>
+
+            <div class="main-panel">
+                <div class="main-header">
+                    <%- include('../admintemp/main-header'); %>
+                </div>
+                <div class="container">
+                    <div class="page-inner">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title">Data UMKM</div>
+                            </div>
+                            <div class="card-body">
+                                <div class="container">
+                                    <div class="card p-3">
+                                        <!-- Bagian Logo Usaha -->
+                                        <div class="text-center mb-4">
+                                            <img src="#" id="logoUsaha" class="img-fluid logo-usaha" alt="Logo Usaha">
+                                            <h3 class="mt-2" id="namaUsaha" name="namaUsaha">PT Contoh Usaha</h3>
+                                        </div>
+
+                                        <!-- Carousel Foto Produk -->
+                                        <div id="productCarousel" class="carousel slide mb-4" data-bs-ride="carousel">
+                                            <div class="carousel-inner" id="fotoProduk" name="fotoProduk">
+
+                                            </div>
+                                            <button class="carousel-control-prev" type="button"
+                                                data-bs-target="#productCarousel" data-bs-slide="prev" id="prevButton"
+                                                name="prevButton">
+                                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                <span class="visually-hidden">Previous</span>
+                                            </button>
+                                            <button class="carousel-control-next" type="button"
+                                                data-bs-target="#productCarousel" data-bs-slide="next" id="nextButton"
+                                                name="nextButton">
+                                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                <span class="visually-hidden">Next</span>
+                                            </button>
+                                        </div>
+
+                                        <!-- Tombol Aksi -->
+                                        <div class="text-center mb-4">
+                                            <button class="btn btn-outline-danger mx-2" id="rejectedButton"
+                                                onclick="handleAction('rejected')">Rejected</button>
+                                            <button class="btn  btn-outline-success mx-2" id="acceptedButton"
+                                                name="acceptedButton"
+                                                onclick="handleAction('accepted')">Accepted</button>
+                                            <button class="btn btn-outline-warning mx-2" id="pendingButton"
+                                                name="pendingButton" onclick="handleAction('pending')">Pending</button>
+                                        </div>
+
+                                        <!-- Tabel Data Usaha -->
+                                        <table class="table table-borderless table-sm" id="dataUsaha" name="dataUsaha">
+                                            <tbody>
+                                                <tr>
+                                                    <th style="width: 30%;" id="usernameLabel" name="usernameLabel">
+                                                        Username:</th>
+                                                    <td id="usernameValue" name="usernameValue">admin_user</td>
+                                                </tr>
+                                                <tr>
+                                                    <th id="namaLabel" name="namaLabel">Nama:</th>
+                                                    <td id="namaValue" name="namaValue">Nama Lengkap</td>
+                                                </tr>
+                                                <tr>
+                                                    <th id="noWaLabel" name="noWaLabel">No Whatsapp:</th>
+                                                    <td id="noWaValue" name="noWaValue">081234567890</td>
+                                                </tr>
+                                                <tr>
+                                                    <th id="emailLabel" name="emailLabel">Email:</th>
+                                                    <td id="emailValue" name="emailValue">email@example.com</td>
+                                                </tr>
+                                                <tr>
+                                                    <th id="omzetLabel" name="omzetLabel">Omzet Tahunan:</th>
+                                                    <td id="omzetValue" name="omzetValue">300.000.000 - 2.500.000.000
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th id="kategoriUsahaLabel" name="kategoriUsahaLabel">Kategori
+                                                        Usaha:</th>
+                                                    <td id="kategoriUsahaValue" name="kategoriUsahaValue">Makanan</td>
+                                                </tr>
+                                                <tr>
+                                                    <th style="vertical-align: top" id="deskripsiUsahaLabel"
+                                                        name="deskripsiUsahaLabel">Deskripsi
+                                                        Usaha:</th>
+                                                    <td id="deskripsiUsahaValue" name="deskripsiUsahaValue">Ini adalah
+                                                        deskripsi usaha singkat.</td>
+                                                </tr>
+                                                <tr>
+                                                    <th id="deskripsiProdukLabel" name="deskripsiProdukLabel">Deskripsi
+                                                        Produk:</th>
+                                                    <td id="deskripsiProdukValue" name="deskripsiProdukValue">Ini adalah
+                                                        deskripsi usaha singkat.</td>
+                                                </tr>
+                                                <tr>
+                                                    <th id="alamatLabel" name="alamatLabel">Alamat:</th>
+                                                    <td id="alamatValue">Jl. Contoh Alamat, No. 1</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                        <!-- Peta Lokasi -->
+                                        <div class="text-center mt-3">
+                                            <label class="form-label my-3" id="lokasiUsahaLabel">Lokasi Usaha</label>
+                                            <div id="map" name="map" class="map">
+                                                <!-- Placeholder untuk peta -->
+                                                Peta lokasi usaha
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    </div>
+    </div>
+
+    <%- include('../admintemp/script'); %>
+        <script>
+            let id = "<%= id %>";
+            console.log(id);
+        </script>
+        <script src="https://unpkg.com/jquery@3.3.1/dist/jquery.js"></script>
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+        <script src="https://unpkg.com/leaflet@1.3.0/dist/leaflet.js"></script>
+        <script src="/asset/js/admin/detailumkm.js"></script>
+
+</body>
+
+</html>

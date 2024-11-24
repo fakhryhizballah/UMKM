@@ -1,0 +1,21 @@
+body {
+  height: 100%;
+  margin: 0;
+}
+
+.logo-usaha {
+  max-width: 100px;
+  max-height: 100px;
+}
+
+.leaflet-container {
+  height: 400px;
+  width: 600px;
+  max-width: 100%;
+  max-height: 100%;
+}
+.map{
+  width: 100%;
+  height: 200px; 
+  background-color: #ccc;
+}
