@@ -1,7 +1,8 @@
 const jwt = require("jsonwebtoken");
 const { Province, Regency, District, Village, Entity, Location, Product, sequelize } = require("../models");
 const { getGeoid } = require("../helper/location");
-const { Op } = require("sequelize");
+const { Op, where } = require("sequelize");
+const { admin } = require(".");
 const secretKey = process.env.JWT_SECRET_KEY;
 const payload = {
     gid: "Server Side",
@@ -118,5 +119,23 @@ module.exports = {
                 message: "something went wrong!",
             });
         }
+    },
+    findMaps: async (req, res) => {
+        let data = await Location.findAll({
+            where: {
+                status: "accepted"
+            },
+            attributes: ['lat', 'lng'],
+            include: [{
+                model: Entity,
+                as: 'entity',
+                attributes: ['id', 'badanusaha', 'logousaha', 'kategoriusaha']
+            }]
+        })
+        return res.status(200).json({
+            error: false,
+            message: "Data Maps",
+            data: data
+        });
     }
 }
