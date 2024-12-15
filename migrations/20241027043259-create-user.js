@@ -17,6 +17,9 @@ module.exports = {
         allowNull: false,
         unique: true
       },
+      nowa: {
+        type: Sequelize.STRING
+      },
       email: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -24,6 +27,9 @@ module.exports = {
       },
       password: {
         type: Sequelize.STRING
+      },
+      role: {
+        type: Sequelize.ENUM('admin', 'user'),
       },
       createdAt: {
         allowNull: false,

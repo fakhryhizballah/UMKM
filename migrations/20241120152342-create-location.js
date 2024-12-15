@@ -65,9 +65,6 @@ module.exports = {
       village: {
         type: Sequelize.BIGINT
       },
-      status: {
-        type: Sequelize.ENUM('rejected', 'accepted', 'pending')
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

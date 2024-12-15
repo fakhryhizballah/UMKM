@@ -57,6 +57,20 @@ module.exports = {
             return res.redirect("/");
         }
     },
+    checkLoginAdmin: (req, res, next) => {
+        const token = req.cookies.token;
+
+        const secretKey = process.env.JWT_SECRET_KEY;
+        const decoded = jwt.verify(token, secretKey);
+        if (!decoded) {
+            return res.redirect("/");
+        }
+        if (decoded.role != "admin") {
+            return res.redirect("/");
+        }
+        next();
+        // decoded.role == "admin" ? next() : return res.redirect("/");
+    },
     logout: (req, res) => {
         res.clearCookie("token");
         res.redirect("/");

@@ -17,9 +17,6 @@ module.exports = (sequelize, DataTypes) => {
   }
   Entity.init({
     username: DataTypes.STRING,
-    name: DataTypes.STRING,
-    nowa: DataTypes.STRING,
-    email: DataTypes.STRING,
     badanusaha: DataTypes.STRING,
     npwp: DataTypes.STRING,
     nib: DataTypes.STRING,
@@ -28,7 +25,8 @@ module.exports = (sequelize, DataTypes) => {
     levelusaha: DataTypes.STRING,
     logousaha: DataTypes.STRING,
     deskripsiusaha: DataTypes.TEXT,
-    deskripsiproduk: DataTypes.TEXT
+    deskripsiproduk: DataTypes.TEXT,
+    status: DataTypes.ENUM('rejected', 'accepted', 'pending')
   }, {
     sequelize,
     modelName: 'Entity',

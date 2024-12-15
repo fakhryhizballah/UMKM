@@ -12,16 +12,14 @@ module.exports = {
       username: {
         type: Sequelize.STRING,
         allowNull: false,
-        unique: true
-      },
-      name: {
-        type: Sequelize.STRING
-      },
-      nowa: {
-        type: Sequelize.STRING
-      },
-      email: {
-        type: Sequelize.STRING
+        references: {
+          model: {
+            tableName: 'Users'
+          },
+          key: 'username',
+        },
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE"
       },
       badanusaha: {
         type: Sequelize.STRING
@@ -49,6 +47,9 @@ module.exports = {
       },
       deskripsiproduk: {
         type: Sequelize.TEXT
+      },
+      status: {
+        type: Sequelize.ENUM('rejected', 'accepted', 'pending')
       },
       createdAt: {
         allowNull: false,

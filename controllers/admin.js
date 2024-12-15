@@ -9,7 +9,6 @@ const payload = {
 module.exports = {
     verifyLogin: async (req, res) => {
         let body = req.body;
-        console.log(body.username);
         try {
             let useraccount = await User.findOne({
                 where: {
@@ -31,6 +30,7 @@ module.exports = {
                     username: useraccount.username,
                     email: useraccount.email,
                     fullName: useraccount.fullName,
+                    role: useraccount.role
                 },
                 secretKey,
                 { expiresIn: 60 * 60 * 24 * 7 }
@@ -43,6 +43,7 @@ module.exports = {
             return res.status(200).json({
                 error: false,
                 message: "Selamat datang, " + useraccount.fullName + "!",
+                role: useraccount.role,
             });
         } catch (err) {
             console.log(err);
@@ -320,10 +321,11 @@ module.exports = {
     },
     getAllEntity: async (req, res) => {
         try {
+            res.setHeader('Content-Type', 'application/json');
             let data = await Entity.findAll({
                 include: [{
                     model: Location,
-                    attributes: ['id', 'address', 'status']
+                    attributes: ['id', 'address']
                 }]
             })
             return res.status(200).json({
@@ -336,6 +338,7 @@ module.exports = {
             return res.status(400).json({
                 error: true,
                 message: "something went wrong!",
+                error: err
             });
         }
     },

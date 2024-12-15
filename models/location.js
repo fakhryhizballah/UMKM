@@ -46,8 +46,7 @@ module.exports = (sequelize, DataTypes) => {
     province: DataTypes.INTEGER,
     regency: DataTypes.INTEGER,
     district: DataTypes.INTEGER,
-    village: DataTypes.INTEGER,
-    status: DataTypes.ENUM('rejected', 'accepted', 'pending')
+    village: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Location',
