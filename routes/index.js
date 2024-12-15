@@ -20,6 +20,7 @@ router.post('/user/register', uploadMultiple.fields([{ name: "logousaha", maxCou
 router.get('/login', controller.login);
 router.post('/login', admin.verifyLogin);
 router.get('/admin', controller.admin);
+router.get('/admin/dashboard', controller.dashboard);
 router.get('/maps/umkm', controller.adminmaps);
 router.get('/admin/article', middeleware.checkLogin, controller.adminarticle);
 router.post('/admin/article/add', middeleware.checkLogin, upload.single('thumbnail'), admin.addArticle);

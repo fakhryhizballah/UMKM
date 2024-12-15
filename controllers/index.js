@@ -68,6 +68,12 @@ module.exports = {
         };
         res.render("admin/admin", data);
     },
+    dashboard: (req, res) => {
+        let data = {
+            title: "dashboard | WEB GIS",
+        };
+        res.render("admin/dashboard", data);
+    },
     adminmaps: (req, res) => {
         let data = {
             title: "Maps Admin | WEB GIS",
