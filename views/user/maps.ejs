@@ -5,6 +5,11 @@
     <%- include('../template/head.ejs'); %>
         <script src='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js'></script>
         <link href='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css' rel='stylesheet' />
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+        <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css" />
+        <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css" />
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+        <script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
         <style>
             #map {
                 width: 100%;
@@ -37,7 +42,7 @@
             <%- include('../template/footer'); %>
         </footer>
         <%- include('../template/script'); %>
-            <script src=asset/js/maps.js> </script>
+        <script src=asset/js/map2.js> </script>
 </body>
 
 </html>

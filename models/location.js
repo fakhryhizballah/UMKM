@@ -31,6 +31,11 @@ module.exports = (sequelize, DataTypes) => {
         targetKey: 'idVillage',
         as: 'vill'
       });
+      models.Location.belongsTo(models.Entity, {
+        foreignKey: 'entityId',
+        targetKey: 'id',
+        as: 'entity'
+      });
     }
   }
   Location.init({

@@ -40,6 +40,7 @@ router.get('/admin/umkm/getEntity', middeleware.checkLogin, admin.getAllEntity);
 
 router.get('/api/article/category', article.findAllcategory);
 router.get('/api/article/topic/:id', article.findCategory);
+router.get('/api/maps', user.findMaps);
 
 
 

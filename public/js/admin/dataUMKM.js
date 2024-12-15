@@ -34,11 +34,11 @@ let tabels = $('#tabelUMKM').DataTable({
         {
             data: 'Location.status', render: function (data, type, row, meta) {
                 if (data == 'accepted') {
-                    return '<button type="button" class="btn btn-sm btn-success" onclick="updatePublished(' + row.id + ')">' + data + '</button>';
+                    return '<button type="button" class="btn btn-sm btn-success">' + data + '</button>';
                 } else if (data == 'rejected') {
-                    return '<button type="button" class="btn btn-sm btn-danger" onclick="updatePublished(' + row.id + ')">' + data + '</button>';
+                    return '<button type="button" class="btn btn-sm btn-danger">' + data + '</button>';
                 }
-                return '<button type="button" class="btn btn-sm btn-warning" onclick="updatePublished(' + row.id + ')">' + data + '</button>';
+                return '<button type="button" class="btn btn-sm btn-warning">' + data + '</button>';
             }
         },
     ],
