@@ -19,7 +19,7 @@ Halaman Admin
 1.Dashboard 
   -Kategori UMKM
   -Grafik Level UMKM
-  Grafik UMKM/Kecamatan
+  -Grafik UMKM/Kecamatan
 
 2.Peta Sebaran
   -UMKM Kategori 
