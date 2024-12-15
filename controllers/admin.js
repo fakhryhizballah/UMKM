@@ -97,7 +97,7 @@ module.exports = {
             console.log(decoded);
             let addBlog = await Blog.create({
                 title: body.title,
-                slug: body.title.x.toLowerCase()
+                slug: body.title.toLowerCase()
                     .replace(/[^a-z\s]/g, "")
                     .replace(/\s+/g, "-"),
                 description: body.description,
