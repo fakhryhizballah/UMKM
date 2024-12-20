@@ -135,7 +135,6 @@ async function editArtikel(id) {
             $('#content').val(response.content);
             for (let x of response.category) {
                 let option = new Option(x, x, true, true);
-                console.log(option);
                 $('#label').append(option).trigger('change');
             }
             // $('#label').val(['aaa']).trigger('change');
@@ -158,7 +157,6 @@ $(document).ready(function () {
             for (let x of response.data) {
                 // Hashtag.push({ id: x.name, text: x.name })
                 let option = new Option(x.name, x.name, false, false);
-                console.log(option);
                 vauleSelect.append(option).trigger('change');
 
                 // // manually trigger the `select2:select` event
