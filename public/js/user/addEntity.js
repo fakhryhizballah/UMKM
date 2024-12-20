@@ -2,10 +2,6 @@ $("#formRegister").submit(function (event) {
     event.preventDefault();
     $('#btnSubmit').prop('disabled', true);
     let datafrom = new FormData();
-    datafrom.append('username', $('#username').val());
-    datafrom.append('name', $('#name').val());
-    datafrom.append('nowa', $('#nowa').val());
-    datafrom.append('email', $('#email').val());
     datafrom.append('badanusaha', $('#badanusaha').val());
     datafrom.append('npwp', $('#npwp').val());
     datafrom.append('nib', $('#nib').val());
@@ -32,7 +28,7 @@ $("#formRegister").submit(function (event) {
     }
 
     $.ajax({
-        url: "/user/register",
+        url: "/api/user/addEntity",
         type: "POST",
         data: datafrom,
         processData: false,
@@ -58,12 +54,11 @@ $("#formRegister").submit(function (event) {
             console.log(xhr);
             $('#btnSubmit').prop('disabled', false);
 
-            // let pesan = JSON.parse(xhr.responseText);
-            // Tampilkan pesan error dari response API menggunakan SweetAlert2
+
             Swal.fire({
                 icon: 'warning',
                 title: 'Oops...',
-                text: "Username sudah terdaftar",
+                text: "Server Error",
             });
         }
     });

@@ -15,7 +15,8 @@ router.get('/maps', controller.maps);
 router.get('/register', controller.register);
 
 
-router.post('/user/register', uploadMultiple.fields([{ name: "logousaha", maxCount: 1 }, { name: "fotoproduk", maxCount: 10 }]), user.register);
+
+
 
 router.get('/login', controller.login);
 router.post('/login', admin.verifyLogin);
@@ -43,6 +44,14 @@ router.get('/api/article/category', article.findAllcategory);
 router.get('/api/article/topic/:id', article.findCategory);
 router.get('/api/maps', user.findMaps);
 
+router.post('/api/user/username', user.cekUsername);
+router.post('/api/user/register', user.userRegister);
+router.post('/api/user/addEntity', uploadMultiple.fields([{ name: "logousaha", maxCount: 1 }, { name: "fotoproduk", maxCount: 10 }]), user.addEntity);
+
+
+router.get('/user/home', middeleware.checkLoginUser, controller.adminUserHome);
+
+// router.get('/logout', middeleware.logout);
 
 
 module.exports = router;

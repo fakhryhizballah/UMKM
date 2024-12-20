@@ -71,8 +71,23 @@ module.exports = {
         next();
         // decoded.role == "admin" ? next() : return res.redirect("/");
     },
+    checkLoginUser: (req, res, next) => {
+        const token = req.cookies.token;
+        if (!token) {
+            return res.redirect("/");
+        }
+        const secretKey = process.env.JWT_SECRET_KEY;
+        const decoded = jwt.verify(token, secretKey);
+        if (!decoded) {
+            return res.redirect("/");
+        }
+        if (decoded.role != "user") {
+            return res.redirect("/");
+        }
+        next();
+    },
     logout: (req, res) => {
         res.clearCookie("token");
-        res.redirect("/");
+        return res.redirect("/login");
     }
 };
