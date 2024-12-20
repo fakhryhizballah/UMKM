@@ -26,5 +26,4 @@ if (token == null) {
 token = token.split(".")[1];
 token = atob(token);
 token = JSON.parse(token);
-console.log(token);
 $('#username_account').text(token.fullName);
