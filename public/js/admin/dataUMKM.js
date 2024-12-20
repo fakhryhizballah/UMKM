@@ -14,8 +14,8 @@ let tabels = $('#tabelUMKM').DataTable({
             }
         },
         { data: 'username' },
-        { data: 'nowa' },
-        { data: 'email' },
+        { data: 'user.nowa' },
+        { data: 'user.email' },
         { data: 'badanusaha' },
         {
             data: 'logousaha', render: function (data, type, row, meta) {
@@ -32,7 +32,7 @@ let tabels = $('#tabelUMKM').DataTable({
             }
         },
         {
-            data: 'Location.status', render: function (data, type, row, meta) {
+            data: 'status', render: function (data, type, row, meta) {
                 if (data == 'accepted') {
                     return '<button type="button" class="btn btn-sm btn-success">' + data + '</button>';
                 } else if (data == 'rejected') {

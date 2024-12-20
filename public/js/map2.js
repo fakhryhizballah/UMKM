@@ -22,9 +22,8 @@ $.ajax({
 
 function addMarkers(maker) {
     for (let a of maker) {
-        console.log(a);
-        let lat = a.lat;
-        let lng = a.lng;
+        let lat = a.Location.lat;
+        let lng = a.Location.lng;
 
         let marker = L.marker([lat, lng]).bindPopup(`Lat: ${lat}, Lng: ${lng}`);
         markers.addLayer(marker);

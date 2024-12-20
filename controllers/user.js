@@ -172,15 +172,26 @@ module.exports = {
 
     },
     findMaps: async (req, res) => {
-        let data = await Location.findAll({
+        // let data = await Location.findAll({
+        //     where: {
+        //         status: "accepted"
+        //     },
+        //     attributes: ['lat', 'lng'],
+        //     include: [{
+        //         model: Entity,
+        //         as: 'entity',
+        //         attributes: ['id', 'badanusaha', 'logousaha', 'kategoriusaha']
+        //     }]
+        // })
+        let data = await Entity.findAll({
             where: {
                 status: "accepted"
             },
-            attributes: ['lat', 'lng'],
+            attributes: ['id', 'badanusaha', 'logousaha', 'kategoriusaha'],
             include: [{
-                model: Entity,
-                as: 'entity',
-                attributes: ['id', 'badanusaha', 'logousaha', 'kategoriusaha']
+                model: Location,
+                // as: 'location',
+                attributes: ['lat', 'lng']
             }]
         })
         return res.status(200).json({

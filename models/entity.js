@@ -13,6 +13,11 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       models.Entity.hasOne(models.Location, { foreignKey: 'entityId' });
       models.Entity.hasMany(models.Product, { foreignKey: 'entityId' });
+      models.Entity.hasOne(models.User, {
+        foreignKey: 'username',
+        sourceKey: 'username',
+        as: 'user'
+      });
     }
   }
   Entity.init({

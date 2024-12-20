@@ -323,10 +323,15 @@ module.exports = {
         try {
             res.setHeader('Content-Type', 'application/json');
             let data = await Entity.findAll({
-                include: [{
+                include: [
+                    {
+                        model: User,
+                        as: 'user',
+                    },
+                    {
                     model: Location,
                     attributes: ['id', 'address']
-                }]
+                    }]
             })
             return res.status(200).json({
                 error: false,
@@ -402,13 +407,20 @@ module.exports = {
             idDecoded = idDecoded.split("#");
             let idEntity = Buffer.from(idDecoded[1], 'base64')
             idEntity = idEntity.toString('utf8');
-            let data = await Location.update(
+            let data = await Entity.update(
                 { status: req.body.status },
                 {
                     where: {
-                        entityId: idEntity
+                        id: idEntity
                     }
                 })
+            // let data = await Location.update(
+            //     { status: req.body.status },
+            //     {
+            //         where: {
+            //             entityId: idEntity
+            //         }
+            //     })
             return res.status(200).json({
                 error: false,
                 message: "Entity berhasil diubah!",

@@ -30,7 +30,7 @@ id="fotoProduk${x.id}" name="fotoProduk${x.id}">
         let lng = parseFloat(data.Location.lng);
         map.setView([data.Location.lat, data.Location.lng], 17);
         L.marker([lat, lng]).addTo(map)
-        switch (data.Location.status) {
+        switch (data.status) {
             case 'rejected':
                 $('#rejectedButton').removeClass('btn-outline-danger').addClass('btn-danger');
                 break;
