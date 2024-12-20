@@ -100,4 +100,10 @@ module.exports = {
         };
         res.render("admin/detailumkm", data);
     },
+    adminUserHome: (req, res) => {
+        let data = {
+            title: "User Home  | WEB GIS",
+        };
+        res.render("adminUser/homeUser", data);
+    },
 };
