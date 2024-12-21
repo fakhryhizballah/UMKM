@@ -172,17 +172,6 @@ module.exports = {
 
     },
     findMaps: async (req, res) => {
-        // let data = await Location.findAll({
-        //     where: {
-        //         status: "accepted"
-        //     },
-        //     attributes: ['lat', 'lng'],
-        //     include: [{
-        //         model: Entity,
-        //         as: 'entity',
-        //         attributes: ['id', 'badanusaha', 'logousaha', 'kategoriusaha']
-        //     }]
-        // })
         let data = await Entity.findAll({
             where: {
                 status: "accepted"
@@ -199,5 +188,35 @@ module.exports = {
             message: "Data Maps",
             data: data
         });
+    },
+    getAllEntity: async (req, res) => {
+        try {
+            let token = req.cookies.token;
+            let decoded = jwt.verify(token, secretKey);
+            let data = await Entity.findAll({
+                where: {
+                    username: decoded.username
+                }
+            })
+            return res.status(200).json({
+                error: false,
+                message: "Data Entity",
+                data: data
+            });
+            // res.setHeader('Content-Type', 'application/json');
+            // let data = await Entity.findAll()
+            // return res.status(200).json({
+            //     error: false,
+            //     message: "Data Entity",
+            //     data: data
+            // });
+        } catch (err) {
+            console.log(err);
+            return res.status(400).json({
+                error: true,
+                message: "something went wrong!",
+                error: err
+            });
+        }
     }
 }

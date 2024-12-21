@@ -59,7 +59,9 @@ module.exports = {
     },
     checkLoginAdmin: (req, res, next) => {
         const token = req.cookies.token;
-
+        if (!token) {
+            return res.redirect("/");
+        }
         const secretKey = process.env.JWT_SECRET_KEY;
         const decoded = jwt.verify(token, secretKey);
         if (!decoded) {

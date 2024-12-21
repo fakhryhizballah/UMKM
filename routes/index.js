@@ -21,8 +21,8 @@ router.get('/register', controller.register);
 router.get('/login', controller.login);
 router.post('/login', admin.verifyLogin);
 router.get('/admin', middeleware.checkLoginAdmin, controller.admin);
-router.get('/admin/dashboard', controller.dashboard);
-router.get('/maps/umkm', controller.adminmaps);
+router.get('/admin/dashboard', middeleware.checkLoginAdmin, controller.dashboard);
+router.get('/maps/umkm', middeleware.checkLoginAdmin, controller.adminmaps);
 router.get('/admin/article', middeleware.checkLoginAdmin, controller.adminarticle);
 router.post('/admin/article/add', middeleware.checkLoginAdmin, upload.single('thumbnail'), admin.addArticle);
 router.delete('/admin/article/:id', middeleware.checkLoginAdmin, admin.dellArticle);
@@ -47,11 +47,12 @@ router.get('/api/maps', user.findMaps);
 router.post('/api/user/username', user.cekUsername);
 router.post('/api/user/register', user.userRegister);
 router.post('/api/user/addEntity', uploadMultiple.fields([{ name: "logousaha", maxCount: 1 }, { name: "fotoproduk", maxCount: 10 }]), user.addEntity);
+router.get('/api/user/getEntity', middeleware.checkLoginUser, user.getAllEntity);
 
 
 router.get('/user/home', middeleware.checkLoginUser, controller.adminUserHome);
 
-// router.get('/logout', middeleware.logout);
+router.get('/logout', middeleware.logout);
 
 
 module.exports = router;
