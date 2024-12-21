@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 const axios = require("axios");
-const { User, Blog, Category, Province, Regency, District, Village, Entity, Location, Product } = require("../models");
+const { Sequelize, User, Blog, Category, Province, Regency, District, Village, Entity, Location, Product } = require("../models");
 const { Op } = require("sequelize");
 const secretKey = process.env.JWT_SECRET_KEY;
 const payload = {
@@ -433,6 +433,122 @@ module.exports = {
                 message: "something went wrong!",
             });
         }
+    },
+    getAllKategori: async (req, res) => {
+        try {
+            const data = await Entity.findAll({
+                attributes: [
+                    'kategoriusaha',
+                    [Sequelize.fn('COUNT', Sequelize.col('kategoriusaha')), 'count']
+                ],
+                where: {
+                    status: "accepted"
+                },
+                group: ['kategoriusaha'],
+            });
+            return res.status(200).json({
+                error: false,
+                message: "Data Kategori",
+                data: data
+            });
+        } catch (err) {
+            console.log(err);
+            return res.status(400).json({
+                error: true,
+                message: "something went wrong!",
+            });
+        }
+    },
+    getAllLevel: async (req, res) => {
+        try {
+            const data = await Entity.findAll({
+                attributes: [
+                    'levelusaha',
+                    [Sequelize.fn('COUNT', Sequelize.col('levelusaha')), 'count']
+                ],
+                where: {
+                    status: "accepted"
+                },
+                group: ['levelusaha'],
+            });
+            return res.status(200).json({
+                error: false,
+                message: "Data Level Usaha",
+                data: data
+            });
+        } catch (err) {
+            console.log(err);
+            return res.status(400).json({
+                error: true,
+                message: "something went wrong!",
+            });
+        }
+    },
+    getAllKecamatan: async (req, res) => {
+        try {
+            const data = await Entity.findAll({
+                where: {
+                    status: "accepted"
+                },
+                include: [{
+                    model: Location,
+                    attributes: ['district'],
+                    include: [{
+                        model: District,
+                        as: 'dist',
+                        attributes: ['id', 'name']
+                    }]
+                }],
+                attributes: [
+                    [Sequelize.fn('COUNT', Sequelize.col('Location.dist.name')), 'count']
+                ],
+                group: ['Location.dist.name']
+            });
+            return res.status(200).json({
+                error: false,
+                message: "Data Kecamatan",
+                data: data
+            });
+        } catch (err) {
+            console.log(err);
+            return res.status(400).json({
+                error: true,
+                message: "something went wrong!",
+            });
+        }
+    },
+    getAllKabupaten: async (req, res) => {
+        try {
+            const data = await Entity.findAll({
+                where: {
+                    status: "accepted"
+                },
+                include: [{
+                    model: Location,
+                    attributes: ['regency'],
+                    include: [{
+                        model: Regency,
+                        as: 'regen',
+                        attributes: ['id', 'name']
+                    }]
+                }],
+                attributes: [
+                    [Sequelize.fn('COUNT', Sequelize.col('Location.regen.name')), 'count']
+                ],
+                group: ['Location.regen.name']
+            });
+            return res.status(200).json({
+                error: false,
+                message: "Data Kabupaten",
+                data: data
+            });
+        } catch (err) {
+            console.log(err);
+            return res.status(400).json({
+                error: true,
+                message: "something went wrong!",
+            });
+        }  
     }   
 
 }
