@@ -90,6 +90,6 @@ module.exports = {
     },
     logout: (req, res) => {
         res.clearCookie("token");
-        return res.redirect("/login");
+        return res.redirect("/");
     }
 };

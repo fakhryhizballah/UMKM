@@ -17,12 +17,12 @@ function getCookie(name) {
 
 
 let token = getCookie("token");
-if (token == null) {
-    if (location.pathname !== '/login') {
-        window.location.href = '/login';
-    }
-    // console.log(location.pathname);
-}
+// if (token == null) {
+//     if (location.pathname !== '/login') {
+//         window.location.href = '/login';
+//     }
+//     // console.log(location.pathname);
+// }
 token = token.split(".")[1];
 token = atob(token);
 token = JSON.parse(token);

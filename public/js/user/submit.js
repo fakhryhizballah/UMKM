@@ -69,7 +69,7 @@ $("#formRegister").submit(function (event) {
                 text: response.message,
             }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location.href = "/login";
+                    window.location.href = "/user/login";
                 }
             });
         },
