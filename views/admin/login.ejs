@@ -3,7 +3,8 @@
 
 <head>
     <%- include('../admintemp/head.ejs'); %>
-
+ <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 
 <body class="bg-light">
@@ -30,8 +31,13 @@
                             <!-- Password -->
                             <div class="mb-3">
                                 <label for="password" class="form-label">Password</label>
-                                <input type="password" id="password" class="form-control" name="password"
-                                    placeholder="**************" required="">
+                                <div class="input-group">
+                                    <input type="password" id="password" class="form-control" name="password"
+                                        placeholder="**************" required="">
+                                                <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                                                    <i class="bi bi-eye-slash" id="iconToggle"></i>
+                                                </button>
+                                </div>
                             </div>
                             <!-- Checkbox -->
                             <div>
@@ -95,6 +101,19 @@
                 },
             });
         });
+
+          $('#togglePassword').on('click', function () {
+                const passwordInput = $('#password');
+                const icon = $('#iconToggle');
+                
+                if (passwordInput.attr('type') === 'password') {
+                    passwordInput.attr('type', 'text');
+                    icon.removeClass('bi-eye-slash').addClass('bi-eye');
+                } else {
+                    passwordInput.attr('type', 'password');
+                    icon.removeClass('bi-eye').addClass('bi-eye-slash');
+                }
+            });
     </script>
 </body>
 

@@ -85,3 +85,26 @@ $("#formRegister").submit(function (event) {
         }
     });
 });
+
+$('#togglePassword').on('click', function () {
+    const passwordInput = $('#password');
+    const icon = $('#iconToggle');
+    if (passwordInput.attr('type') === 'password') {
+        passwordInput.attr('type', 'text');
+        icon.removeClass('bi-eye-slash').addClass('bi-eye');
+    } else {
+        passwordInput.attr('type', 'password');
+        icon.removeClass('bi-eye').addClass('bi-eye-slash');
+    }
+});
+$('#togglePassword2').on('click', function () {
+    const passwordInput = $('#password2');
+    const icon = $('#iconToggle2');
+    if (passwordInput.attr('type') === 'password') {
+        passwordInput.attr('type', 'text');
+        icon.removeClass('bi-eye-slash').addClass('bi-eye');
+    } else {
+        passwordInput.attr('type', 'password');
+        icon.removeClass('bi-eye').addClass('bi-eye-slash');
+    }
+});
