@@ -56,11 +56,17 @@ module.exports = {
         res.render("user/register", data);
 
     },
-    login: (req, res) => {
+    loginAdmin: (req, res) => {
         let data = {
             title: "login | WEB GIS",
         };
         res.render("admin/login", data);
+    },
+    loginUser: (req, res) => {
+        let data = {
+            title: "login User | WEB GIS",
+        };
+        res.render("admin/loginUser", data);
     },
     admin: (req, res) => {
         let data = {

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <%- include('../admintemp/head.ejs'); %>
+ <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+    <div class="container d-flex flex-column">
+        <div class="row align-items-center justify-content-center g-0
+        min-vh-100">
+            <div class="col-12 col-md-8 col-lg-6 col-xxl-4 py-8 py-xl-0">
+                <!-- Card -->
+                <div class="card smooth-shadow-md">
+                    <!-- Card body -->
+                    <div class="card-body p-6">
+                        <div class="mb-4">
+                            <a href="/"><img src="/asset/img/apple-touch-icon.png" class="mb-2" alt=""></a>
+                            <p class="mb-6">Login User UMKM</p>
+                        </div>
+                        <!-- Form -->
+                        <form>
+                            <!-- Username -->
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Username or email</label>
+                                <input type="text" id="username" class="form-control" name="email"
+                                    placeholder="Email address here" required="">
+                            </div>
+                            <!-- Password -->
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <div class="input-group">
+                                    <input type="password" id="password" class="form-control" name="password"
+                                        placeholder="**************" required="">
+                                                <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                                                    <i class="bi bi-eye-slash" id="iconToggle"></i>
+                                                </button>
+                                </div>
+                            </div>
+                            <!-- Checkbox -->
+                            <div>
+                                <!-- Button -->
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-primary">Sign
+                                        in</button>
+                                </div>
+
+                            </div>
+
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- include('../admintemp/script'); %>
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.8/sweetalert2.min.js"></script>
+    <script>
+        $('form').on('submit', function (event) {
+            event.preventDefault();
+            const username = $('#username').val();
+            const password = $('#password').val();
+
+            // ajax request /api/verify-otp
+            $.ajax({
+                url: '/login',
+                method: 'POST',
+                data: {
+                    username: username,
+                    password: password,
+                },
+                success: function (response) {
+                    console.log(response);
+                    swal.fire({
+                        icon: 'success',
+                        title: response.message,
+                        text: 'Anda telah berhasil masuk.',
+                    }).then(() => {
+                        // Redirect ke halaman setelah login berhasil
+                        // window.location.href = '/admin';
+                        if (response.role == 'admin') {
+                            window.location.href = '/admin';
+                        } else {
+                            window.location.href = '/user/home';
+                        }
+                    });
+                },
+                error: function (xhr, status, error) {
+                    console.log(xhr.responseJSON.message);
+                    // Tampilkan pesan error dari response API menggunakan SweetAlert2
+                    swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: xhr.responseJSON.message,
+                    });
+                },
+            });
+        });
+
+          $('#togglePassword').on('click', function () {
+                const passwordInput = $('#password');
+                const icon = $('#iconToggle');
+                
+                if (passwordInput.attr('type') === 'password') {
+                    passwordInput.attr('type', 'text');
+                    icon.removeClass('bi-eye-slash').addClass('bi-eye');
+                } else {
+                    passwordInput.attr('type', 'password');
+                    icon.removeClass('bi-eye').addClass('bi-eye-slash');
+                }
+            });
+    </script>
+</body>
+
+</html>

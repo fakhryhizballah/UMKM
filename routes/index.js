@@ -18,7 +18,8 @@ router.get('/register', controller.register);
 
 
 
-router.get('/login', controller.login);
+router.get('/admin/login', controller.loginAdmin);
+router.get('/user/login', controller.loginUser);
 router.post('/login', admin.verifyLogin);
 router.get('/admin', middeleware.checkLoginAdmin, controller.admin);
 router.get('/admin/dashboard', middeleware.checkLoginAdmin, controller.dashboard);
