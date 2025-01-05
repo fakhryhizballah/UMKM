@@ -18,6 +18,10 @@ module.exports = (sequelize, DataTypes) => {
         sourceKey: 'username',
         as: 'user'
       });
+      models.Entity.hasOne(models.Entity_Status, {
+        foreignKey: 'entityId',
+        sourceKey: 'id'
+      });
     }
   }
   Entity.init({

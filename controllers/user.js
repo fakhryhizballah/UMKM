@@ -207,19 +207,33 @@ module.exports = {
                 message: "Data Entity",
                 data: data
             });
-            // res.setHeader('Content-Type', 'application/json');
-            // let data = await Entity.findAll()
-            // return res.status(200).json({
-            //     error: false,
-            //     message: "Data Entity",
-            //     data: data
-            // });
         } catch (err) {
             console.log(err);
             return res.status(400).json({
                 error: true,
                 message: "something went wrong!",
-                error: err
+            });
+        }
+    },
+    showStatus: async (req, res) => {
+        try {
+            let id = req.params.id;
+
+            let data = await Entity_Status.findAll({
+                where: {
+                    entityId: id
+                }
+            })
+            return res.status(200).json({
+                error: false,
+                message: "Data Status",
+                data: data
+            });
+        } catch (err) {
+            console.log(err);
+            return res.status(400).json({
+                error: true,
+                message: "something went wrong!",
             });
         }
     }

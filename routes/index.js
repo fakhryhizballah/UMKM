@@ -53,6 +53,7 @@ router.post('/api/user/username', user.cekUsername);
 router.post('/api/user/register', user.userRegister);
 router.post('/api/user/addEntity', uploadMultiple.fields([{ name: "logousaha", maxCount: 1 }, { name: "fotoproduk", maxCount: 10 }]), user.addEntity);
 router.get('/api/user/getEntity', middeleware.checkLoginUser, user.getAllEntity);
+router.get('/api/user/showStatus/:id', middeleware.checkLoginUser, user.showStatus);
 
 
 router.get('/user/home', middeleware.checkLoginUser, controller.adminUserHome);
