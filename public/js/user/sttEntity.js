@@ -42,24 +42,18 @@ function cekStatus(id) {
         url: '/api/user/showStatus/' + id,
         type: 'GET',
         success: function (res) {
-            console.log(res.data.length)
             $('#modalStatus').modal('show');
-            if (res.data.length > 0) {
-                for (let e of res.data) {
-                    console.log(e);
-                    let timedate = new Date(e.createdAt).toLocaleString(
-                        'en-GB', {
-                        timeZone: 'Asia/Jakarta'
-                    }
-                    );
-                    $('#modalStatus').find('.modal-body').html(`
-                    <ol>
-                        <li>(${e.status}) ${e.message} | ${timedate}</li>
-                    </ol>
-                    `);
-                }
+            let listItems = '';
+            for (let e of res.data) {
+                let timedate = new Date(e.createdAt).toLocaleString(
+                    'en-GB',
+                    { timeZone: 'Asia/Jakarta' }
+                );
+                listItems += `<li>(${e.status}) ${e.message} | ${timedate}</li>`;
             }
 
+            // Perbarui isi modal dengan list yang benar
+            $('#modalStatus').find('.modal-body').html(`<ol>${listItems}</ol>`);
         }
     });
 }
