@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const { Province, Regency, District, Village, Entity, Location, Product, User, sequelize } = require("../models");
+const { Province, Regency, District, Village, Entity, Location, Product, User, Entity_Status, sequelize } = require("../models");
 const { getGeoid } = require("../helper/location");
 const { Op, where } = require("sequelize");
 const { admin } = require(".");
@@ -26,7 +26,6 @@ module.exports = {
             })
             if (prov == 0) {
                 let dataProv = await getGeoid('province', body.prov);
-                console.log(dataProv);
                 await Province.create({
                     idProvince: body.prov,
                     name: dataProv.name
@@ -87,7 +86,12 @@ module.exports = {
                 deskripsiproduk: body.deskripsiproduk,
                 status: "pending"
             }, { transaction: t });
-            let location = await Location.create({
+            await Entity_Status.create({
+                entityId: entity.id,
+                message: "Menunggu konfirmasi admin",
+                status: "pending"
+            }, { transaction: t });
+            await Location.create({
                 entityId: entity.id,
                 lat: body.lat,
                 lng: body.lng,

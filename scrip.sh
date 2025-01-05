@@ -10,3 +10,4 @@ npx sequelize-cli model:generate --name Village --attributes id:integer,name:str
 npx sequelize-cli model:generate --name Entity --attributes username:string,name:string,nowa:string,email:string,badanusaha:string,npwp:string,nib:string,omzet:string,kategoriusaha:string,levelusaha:string,logousaha:string,deskripsiusaha:text,deskripsiproduk:text
 npx sequelize-cli model:generate --name Location --attributes entityId:integer,lat:integer,lng:integer,address:string,province:integer,regency:integer,district:integer,village:integer
 npx sequelize-cli model:generate --name Product --attributes entityId:integer,url:string
+npx sequelize-cli model:generate --name Entity_Status --attributes entityId:integer,message:string,status:string

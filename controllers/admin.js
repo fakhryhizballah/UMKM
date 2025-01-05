@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 const axios = require("axios");
-const { Sequelize, User, Blog, Category, Province, Regency, District, Village, Entity, Location, Product } = require("../models");
+const { Sequelize, User, Blog, Category, Province, Regency, District, Village, Entity, Location, Product, Entity_Status } = require("../models");
 const { Op } = require("sequelize");
 const secretKey = process.env.JWT_SECRET_KEY;
 const payload = {
