@@ -4,7 +4,6 @@ $.ajax({
     url: '/admin/umkm/getEntity/' + id,
     type: "GET",
     success: function (data) {
-        console.log(data);
         data = data.data;
         for (let x of data.Products) {
             $('#fotoProduk').append(`<div class="carousel-item active">
@@ -70,30 +69,60 @@ const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 function handleAction(action) {
+    let message = '';
     switch (action) {
         case 'rejected':
             $('#rejectedButton').removeClass('btn-outline-danger').addClass('btn-danger');
             $('#acceptedButton').removeClass('btn-success').addClass('btn-outline-success');
             $('#pendingButton').removeClass('btn-warning').addClass('btn-outline-warning');
+            console.log("rejected");
+            $('#modalAlasan').modal('show');
             break;
         case 'accepted':
             $('#acceptedButton').removeClass('btn-outline-success').addClass('btn-success');
             $('#rejectedButton').removeClass('btn-danger').addClass('btn-outline-danger');
             $('#pendingButton').removeClass('btn-warning').addClass('btn-outline-warning');
+            message = 'Data UKM disetujui';
             break;
         case 'pending':
             $('#pendingButton').removeClass('btn-outline-warning').addClass('btn-warning');
             $('#rejectedButton').removeClass('btn-danger').addClass('btn-outline-danger');
             $('#acceptedButton').removeClass('btn-success').addClass('btn-outline-success');
+            message = 'Data UKM ditunda';
             break;
     }
-
+    if (action != 'rejected') {
+        $.ajax({
+            url: '/admin/umkm/getEntity/' + id,
+            type: 'PUT',
+            dataType: 'json',
+            data: {
+                status: action,
+                message: message
+            },
+            success: function (response) {
+                console.log(response);
+                $('#rejectedButton').prop('disabled', true)
+                $('#acceptedButton').prop('disabled', true)
+                $('#pendingButton').prop('disabled', true)
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: response.message,
+                })
+            }
+        })
+    }
+}
+function handleActionRejected() {
+    let alasan = $('#alasan').val();
     $.ajax({
         url: '/admin/umkm/getEntity/' + id,
         type: 'PUT',
         dataType: 'json',
         data: {
-            status: action
+            status: 'rejected',
+            message: alasan
         },
         success: function (response) {
             console.log(response);

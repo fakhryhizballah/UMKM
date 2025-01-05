@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 const axios = require("axios");
-const { Sequelize, User, Blog, Category, Province, Regency, District, Village, Entity, Location, Product, Entity_Status } = require("../models");
+const { sequelize, User, Blog, Category, Province, Regency, District, Village, Entity, Location, Product, Entity_Status } = require("../models");
 const { Op } = require("sequelize");
 const secretKey = process.env.JWT_SECRET_KEY;
 const payload = {
@@ -401,26 +401,27 @@ module.exports = {
     },
     updateEntity: async (req, res) => {
         let id = req.params.id;
+        let t = await sequelize.transaction();
         try {
             let buffer = Buffer.from(id, 'base64');
             let idDecoded = buffer.toString('utf8');
             idDecoded = idDecoded.split("#");
             let idEntity = Buffer.from(idDecoded[1], 'base64')
             idEntity = idEntity.toString('utf8');
+            let massage = req.body.message;
             let data = await Entity.update(
                 { status: req.body.status },
                 {
                     where: {
                         id: idEntity
                     }
-                })
-            // let data = await Location.update(
-            //     { status: req.body.status },
-            //     {
-            //         where: {
-            //             entityId: idEntity
-            //         }
-            //     })
+                }, { transaction: t })
+            await Entity_Status.create({
+                entityId: idEntity,
+                message: massage,
+                status: req.body.status
+            }, { transaction: t })
+            await t.commit();
             return res.status(200).json({
                 error: false,
                 message: "Entity berhasil diubah!",
@@ -428,6 +429,7 @@ module.exports = {
             });
         } catch (err) {
             console.log(err);
+            await t.rollback();
             return res.status(400).json({
                 error: true,
                 message: "something went wrong!",
