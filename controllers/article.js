@@ -47,7 +47,8 @@ module.exports = {
                     category: { [Op.like]: `%${id}%` },
                     status: 'published'
                 },
-                attributes: ['id', 'slug', 'title', 'thumbnail', 'description', 'category']
+                attributes: ['id', 'slug', 'title', 'thumbnail', 'description', 'category'],
+                order: [['createdAt', 'DESC']],
             })
             // data.dataValues.category = JSON.parse(data.dataValues.category);
             for (x of data) {

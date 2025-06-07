@@ -2,10 +2,26 @@ const jwt = require("jsonwebtoken");
 const secretKey = process.env.JWT_SECRET_KEY;
 const { token } = require("morgan");
 const { User, Blog, Category } = require("../models");
+// const { Op } = require("sequelize");
 module.exports = {
-    home: (req, res) => {
+
+    home: async (req, res) => {
+        let berita = await Blog.findAll({
+            where: {
+                // category: { [Op.like]: `%%` },
+                status: 'published'
+            },
+            attributes: ['id', 'slug', 'title', 'thumbnail', 'description', 'category'],
+            order: [['createdAt', 'DESC']],
+        })
+        // data.dataValues.category = JSON.parse(data.dataValues.category);
+        for (x of berita) {
+            x.dataValues.category = JSON.parse(x.dataValues.category);
+        }
+        console.log(berita);
         let data = {
             title: "Home | WEB GIS",
+            berita
         };
         res.render("user/home", data);
     },
