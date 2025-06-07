@@ -1,7 +1,7 @@
 console.log("test");
 console.log("id" + id);
 $.ajax({
-    url: '/admin/umkm/getEntity/' + id,
+    url: '/api/admin/umkm/getEntity/' + id,
     type: "GET",
     success: function (data) {
         data = data.data;
@@ -93,7 +93,7 @@ function handleAction(action) {
     }
     if (action != 'rejected') {
         $.ajax({
-            url: '/admin/umkm/getEntity/' + id,
+            url: '/api/admin/umkm/getEntity/' + id,
             type: 'PUT',
             dataType: 'json',
             data: {
@@ -117,7 +117,7 @@ function handleAction(action) {
 function handleActionRejected() {
     let alasan = $('#alasan').val();
     $.ajax({
-        url: '/admin/umkm/getEntity/' + id,
+        url: '/api/admin/umkm/getEntity/' + id,
         type: 'PUT',
         dataType: 'json',
         data: {

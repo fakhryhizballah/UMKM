@@ -35,9 +35,10 @@ router.get('/admin/articles', admin.articles);
 
 router.get('/admin/umkm', middeleware.checkLoginAdmin, controller.adminUMKM);
 router.get('/admin/umkm/entity/:id', middeleware.checkLoginAdmin, controller.adminDetailUMKM);
-router.get('/admin/umkm/getEntity/:id', admin.getEntity);
-router.put('/admin/umkm/getEntity/:id', admin.updateEntity);
-router.get('/admin/umkm/getEntity', middeleware.checkLoginAdmin, admin.getAllEntity);
+router.get('/umkm/entity/:id', controller.profilUMKM);
+router.get('/api/admin/umkm/getEntity/:id', admin.getEntity);
+router.put('/api/admin/umkm/getEntity/:id', admin.updateEntity);
+router.get('/api/admin/umkm/getEntity', middeleware.checkLoginAdmin, admin.getAllEntity);
 router.get('/admin/umkm/dashboard/kategori', middeleware.checkLoginAdmin, admin.getAllKategori);
 router.get('/admin/umkm/dashboard/level', middeleware.checkLoginAdmin, admin.getAllLevel);
 router.get('/admin/umkm/dashboard/kecamatan', middeleware.checkLoginAdmin, admin.getAllKecamatan);

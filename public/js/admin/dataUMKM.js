@@ -1,6 +1,6 @@
 let tabels = $('#tabelUMKM').DataTable({
     ajax: {
-        url: '/admin/umkm/getEntity',
+        url: '/api/admin/umkm/getEntity',
         type: 'GET',
         dataSrc: function (json) {
             // Proses untuk mengakses data yang diinginkan

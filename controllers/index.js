@@ -1,7 +1,14 @@
 const jwt = require("jsonwebtoken");
 const secretKey = process.env.JWT_SECRET_KEY;
 const { token } = require("morgan");
-const { User, Blog, Category } = require("../models");
+const { User, Entity, Blog, Category,
+    Province,
+    Regency,
+    District,
+    Village,
+    Location,
+    Product
+} = require("../models");
 // const { Op } = require("sequelize");
 module.exports = {
 
@@ -121,6 +128,65 @@ module.exports = {
             id: id
         };
         res.render("admin/detailumkm", data);
+    },
+    profilUMKM: async (req, res) => {
+        let id = req.params.id;
+        try {
+            let buffer = Buffer.from(id, 'base64');
+            let idDecoded = buffer.toString('utf8');
+            idDecoded = idDecoded.split("#");
+            let idEntity = Buffer.from(idDecoded[1], 'base64')
+            idEntity = idEntity.toString('utf8');
+            let dataentity = await Entity.findOne({
+                where: {
+                    id: idEntity
+                },
+                include: [{
+                    model: Location,
+                    // attributes: ['id', 'address', 'status']
+                    include: [{
+                        model: Province,
+                        as: 'prov'
+                    },
+                    {
+                        model: Regency,
+                        as: 'regen'
+                    },
+                    {
+                        model: District,
+                        as: 'dist'
+                    },
+                    {
+                        model: Village,
+                        as: 'vill'
+                    }
+                    ],
+
+                }, {
+                    model: Product,
+                    attributes: ['id', 'url']
+                }]
+            })
+            console.log(dataentity);
+            if (dataentity == null) {
+                return res.status(404).json({
+                    error: true,
+                    message: "Entity not found"
+                });
+            }
+            let data = {
+                title: "Profil UMKM  | WEB GIS",
+                id: id,
+                data: {
+                    title: dataentity.badanusaha,
+                    dataentity,
+                    // token: req.cookies.token
+                }
+            };
+            res.render("user/profileUMKM", data);
+        } catch (err) {
+            return res.redirect('/');
+        }
     },
     adminUserHome: (req, res) => {
         let data = {

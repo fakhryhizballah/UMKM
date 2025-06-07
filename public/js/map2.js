@@ -38,7 +38,7 @@ function addMarkers(maker) {
         console.log(key);
         // window.location.href = "/admin/umkm/entity/" + key;
         const routeLink = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
-        const profileLink = `/admin/umkm/entity/${key}`;
+        const profileLink = `/umkm/entity/${key}`;
 
         const popupContent = `
     <h3>${a.badanusaha}</h3><br>
