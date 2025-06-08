@@ -129,6 +129,12 @@ module.exports = {
         };
         res.render("admin/detailumkm", data);
     },
+    akunUMKM: (req, res) => {
+        let data = {
+            title: "Akun UMKM  | WEB GIS",
+        };
+        res.render("admin/akun", data);
+    },
     profilUMKM: async (req, res) => {
         let id = req.params.id;
         try {

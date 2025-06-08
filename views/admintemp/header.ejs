@@ -64,10 +64,30 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a href="/admin/umkm">
+                    <a data-bs-toggle="collapse" href="#admin">
                         <i class="fas fa-desktop"></i>
-                        <p>Verikasi UMKM</p>
+                        <p>Admin UMKM</p>
+                        <span class="caret"></span>
                     </a>
+                    <div class="collapse" id="admin">
+                        <ul class="nav nav-collapse">
+                            <li>
+                                <a href="/admin/umkm">
+                                    <span class="sub-item">Verikasi UMKM</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/admin/akun">
+                                    <span class="sub-item">Akun UMKM</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/register">
+                                    <span class="sub-item">Tambah / Regisrasi UMKM</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a href="/admin/article">

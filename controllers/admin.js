@@ -551,6 +551,27 @@ module.exports = {
                 message: "something went wrong!",
             });
         }  
+    },
+    getAllUser: async (req, res) => {
+        try {
+            let data = await User.findAll({
+                where: {
+                    role: 'user'
+                },
+                attributes: { exclude: ['role', 'id', 'updatedAt'] }
+            })
+            return res.status(200).json({
+                error: false,
+                message: "Data User",
+                data: data
+            });
+        } catch (err) {
+            console.log(err);
+            return res.status(400).json({
+                error: true,
+                message: "something went wrong!",
+            });
+        }
     }   
 
 }
