@@ -157,6 +157,7 @@ module.exports = {
                 username: body.username,
                 email: body.email,
                 nowa: body.nowa,
+                nik: body.nik,
                 password: body.password,
                 fullName: body.fullName,
                 role: 'user'

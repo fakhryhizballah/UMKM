@@ -48,7 +48,7 @@
                                     <div class="text-left mx-auto">
                                         <h3 class="text-primary">Informasi Badan
                                             Usaha</h3>
-                                        <form id="formRegister">
+                                        <form id="formRegister" onsubmit="return validateInput()">
                                             <div class="row">
                                                 <div class="col-md-12 col-lg-6">
                                                     <div class="form-item w-100">
@@ -70,8 +70,12 @@
                                             <div class="form-item w-100">
                                                 <label for="nowa" class="form-label my-3">No
                                                     Whatsapp<sup>*</sup></label>
-                                                <input type="number" id="nowa" name="nowa" class="form-control" maxlength="15"
+                                                <input type="number" id="nowa" name="nowa" class="form-control"
                                                     required>
+                                            </div>
+                                            <div class="form-item w-100">
+                                                <label for="nik" class="form-label my-3">NIK<sup>*</sup></label>
+                                                <input type="text" id="nik" name="nik" class="form-control" pattern="^\d{16}$" required>
                                             </div>
                                             <div class="form-item w-100">
                                                 <label for="email" class="form-label my-3">Email<sup>*</sup></label>
@@ -122,6 +126,17 @@
         <%- include('../template/script'); %>
             <script src="https://unpkg.com/jquery@3.3.1/dist/jquery.js"></script>
             <script src="https://unpkg.com/leaflet@1.3.0/dist/leaflet.js"></script>
+            <script>
+                function validateInput() {
+                    const input = document.getElementById('nik').value;
+                    const regex = /^\d{16}$/;
+                    if (!regex.test(input)) {
+                    alert("Input harus berupa angka dengan tepat 16 digit.");
+                    return false;
+                    }
+                    return true;
+                }
+            </script>
             <script src="/asset/js/user/submit.js"></script>
 </body>
 

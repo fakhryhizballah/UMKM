@@ -17,6 +17,11 @@ module.exports = {
         allowNull: false,
         unique: true
       },
+      nik: {
+        type: Sequelize.BIGINT,
+        allowNull: true,
+        unique: true
+      },
       nowa: {
         type: Sequelize.STRING
       },
@@ -30,6 +35,10 @@ module.exports = {
       },
       role: {
         type: Sequelize.ENUM('admin', 'user'),
+      },
+      status: {
+        type: Sequelize.ENUM('1', '0'),
+        defaultValue: '1'
       },
       createdAt: {
         allowNull: false,
