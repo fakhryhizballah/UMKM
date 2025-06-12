@@ -24,7 +24,8 @@ module.exports = (sequelize, DataTypes) => {
     status: {
       type: DataTypes.ENUM('1', '0'),
       defaultValue: '1'
-    }
+    },
+    level: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'User',

@@ -40,6 +40,9 @@ module.exports = {
         type: Sequelize.ENUM('1', '0'),
         defaultValue: '1'
       },
+      level: {
+        type: Sequelize.STRING
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

@@ -36,6 +36,8 @@ router.get('/admin/articles', admin.articles);
 router.get('/admin/umkm', middeleware.checkLoginAdmin, controller.adminUMKM);
 router.get('/admin/akun', middeleware.checkLoginAdmin, controller.akunUMKM);
 router.get('/api/admin/allUser', middeleware.checkLoginAdmin, admin.getAllUser);
+router.put('/api/admin/user/:username', middeleware.checkLoginAdmin, admin.updateUser);
+router.put('/api/admin/userlevel/:username', middeleware.checkLoginAdmin, admin.updateLevel);
 router.get('/admin/umkm/entity/:id', middeleware.checkLoginAdmin, controller.adminDetailUMKM);
 router.get('/umkm/entity/:id', controller.profilUMKM);
 router.get('/api/admin/umkm/getEntity/:id', admin.getEntity);

@@ -572,6 +572,71 @@ module.exports = {
                 message: "something went wrong!",
             });
         }
+    },
+    updateUser: async (req, res) => {
+        let username = req.params.username;
+        try {
+            let user = await User.findOne({
+                where: {
+                    username: username
+                }
+            })
+            if (!user) {
+                return res.status(404).json({
+                    error: true,
+                    message: "User not found!",
+                });
+            }
+            await user.update({
+                status: user.status == '1' ? '0' : '1'
+            })
+            return res.status(200).json({
+                error: false,
+                message: "User berhasil diubah!",
+            });
+        } catch (err) {
+            console.log(err);
+            if (err.errors[0].validatorKey == "not_unique") {
+                return res.status(400).json({
+                    error: true,
+                    message: "Username atau email sudah ada!",
+                });
+            }
+            return res.status(500).json({
+                error: true,
+                message: "something went wrong!",
+            });
+        }
+    },
+    updateLevel: async (req, res) => {
+        let username = req.params.username;
+        let level = req.body.level;
+        try {
+            let user = await User.findOne({
+                where: {
+                    username: username
+                }
+            })
+            if (!user) {
+                return res.status(404).json({
+                    error: true,
+                    message: "User not found!",
+                });
+            }
+            await user.update({
+                level: level
+            })
+            return res.status(200).json({
+                error: false,
+                message: "Level user berhasil diubah!",
+            });
+        } catch (err) {
+            console.log(err);
+            return res.status(500).json({
+                error: true,
+                message: "something went wrong!",
+            });
+        }
     }   
 
 }
