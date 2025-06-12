@@ -15,6 +15,7 @@ let tabels = $('#tabelUMKM').DataTable({
         },
         { data: 'username' },
         { data: 'fullName' },
+        { data: 'nik' },
         { data: 'nowa' },
         { data: 'email' },
         {
@@ -29,7 +30,13 @@ let tabels = $('#tabelUMKM').DataTable({
                     </div>
                 `;
             }
-        }
+        },
+        {
+            data: 'createdAt',
+            render: function (data, type, row, meta) {
+                return new Date(data).toLocaleString('id-ID');
+            }
+        },
     ],
     processing: true, // Menampilkan indikator loading
     serverSide: false, // Diatur false jika semua data di-load di sisi client

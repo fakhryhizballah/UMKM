@@ -50,11 +50,41 @@ function addMarkers(maker) {
     Lihat Profile
 </a>
 `;
-
+        let icon = {
+            iconUrl: '/asset/img/marker/location-pin.png',
+            iconSize: [41, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+        }
+        if (a.kategoriusaha === 'Minuman') {
+            icon.iconUrl = '/asset/img/marker/miuman.png';
+        }
+        else if (a.kategoriusaha === 'Makanan') {
+            icon.iconUrl = '/asset/img/marker/restaurant.png';
+        }
+        else if (a.kategoriusaha === 'Pakaian') {
+            icon.iconUrl = '/asset/img/marker/clothing-shop.png';
+        }
+        else if (a.kategoriusaha === 'Elektronik') {
+            icon.iconUrl = '/asset/img/marker/elektonik.png';
+        }
+        else if (a.kategoriusaha === 'Kerajinan') {
+            icon.iconUrl = '/asset/img/marker/Craft.png';
+        }
+        else if (a.kategoriusaha === 'Aksesoris') {
+            icon.iconUrl = '/asset/img/marker/Accessories.png';
+        }
+        else if (a.kategoriusaha === 'Kosmetik') {
+            icon.iconUrl = '/asset/img/marker/salon.png';
+        }
+        else if (a.kategoriusaha === 'Furniture') {
+            icon.iconUrl = '/asset/img/marker/furniture-store.png';
+        }
         let marker = L.marker([lat, lng]).bindPopup(popupContent);
+        marker.setIcon(L.icon(icon));
         markers.addLayer(marker);
     }
 
     // el.addEventListener('click', () => { 
 
-} 
+}

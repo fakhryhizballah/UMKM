@@ -49,6 +49,7 @@ $("#formRegister").submit(function (event) {
     let datafrom = {
         username: $('#username').val(),
         fullName: $('#fullName').val(),
+        nik: $('#nik').val(),
         nowa: $('#nowa').val(),
         email: $('#email').val(),
         password: $('#password').val(),
