@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 const axios = require("axios");
-const { Sequelize, sequelize, User, Blog, Category, Province, Regency, District, Village, Entity, Location, Product, Entity_Status } = require("../models");
+const { Sequelize, sequelize, User, Blog, Category, Province, Regency, District, Village, Entity, Location, Product, file, profile, Entity_Status } = require("../models");
 const { Op } = require("sequelize");
 const secretKey = process.env.JWT_SECRET_KEY;
 const payload = {
@@ -551,6 +551,70 @@ module.exports = {
                 message: "something went wrong!",
             });
         }  
+    },
+    getBerkas: async (req, res) => {
+        try {
+            let data = await file.findAll()
+            return res.status(200).json({
+                error: false,
+                message: "Data Berkas",
+                data: data
+            });
+        } catch (err) {
+            console.log(err);
+            return res.status(400).json({
+                error: true,
+                message: "something went wrong!",
+            });
+        }
+    },
+    delBerkas: async (req, res) => {
+        let body = req.body;
+        try {
+            let data = await file.destroy({
+                where: {
+                    id: body.id
+                }
+            })
+            return res.status(200).json({
+                error: false,
+                status: 200,
+                message: "Data berhasil dihapus!",
+                data: data
+            });
+        } catch (err) {
+            console.log(err);
+            return res.status(400).json({
+                error: true,
+                status: 400,
+                message: "something went wrong!",
+            });
+        }
+    },
+    updateBerkas: async (req, res) => {
+        let body = req.body;
+        try {
+            let data = await file.update({
+                status: '1'
+            }, {
+                where: {
+                    id: body.id
+                }
+            })
+            return res.status(200).json({
+                error: false,
+                status: 200,
+                message: "Data berhasil diupdate!",
+                data: data
+            });
+        } catch (err) {
+            console.log(err);
+            return res.status(400).json({
+                error: true,
+                status: 400,
+            }
+            );
+        }
     },
     getAllUser: async (req, res) => {
         try {

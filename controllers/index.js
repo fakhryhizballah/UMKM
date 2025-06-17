@@ -200,4 +200,10 @@ module.exports = {
         };
         res.render("adminUser/homeUser", data);
     },
+    adminUserAkun: (req, res) => {
+        let data = {
+            title: "Dashboard User  | WEB GIS",
+        };
+        res.render("adminUser/dashboardAkun", data);
+    },
 };

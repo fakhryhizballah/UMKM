@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
-const { User } = require("../models");
+const { User, Profile } = require("../models");
+const user = require("../controllers/user");
 module.exports = {
     login: async (req, res, next) => {
         try {
@@ -70,26 +71,50 @@ module.exports = {
         if (decoded.role != "admin") {
             return res.redirect("/");
         }
+        req.account = decoded;
         next();
         // decoded.role == "admin" ? next() : return res.redirect("/");
     },
-    checkLoginUser: (req, res, next) => {
+    checkLoginUser: async (req, res, next) => {
         const token = req.cookies.token;
         if (!token) {
             return res.redirect("/");
         }
         const secretKey = process.env.JWT_SECRET_KEY;
         const decoded = jwt.verify(token, secretKey);
+        req.account = decoded;
         if (!decoded) {
             return res.redirect("/");
         }
         if (decoded.role != "user") {
             return res.redirect("/");
         }
+        let url_pp = req.cookies.url_pp;
+        if (!url_pp) {
+            let pp = await Profile.findOne({
+                where: {
+                    username: decoded.username,
+                },
+                attributes: ["url_pp"],
+            });
+            try {
+                if (pp.dataValues.url_pp !== null && pp.dataValues.url_pp !== "") {
+                    res.cookie("url_pp", pp.dataValues.url_pp, {
+                        maxAge: 1000 * 60 * 60 * 24 * 7,
+                        httpOnly: false,
+                    });
+
+                }
+            } catch (error) {
+
+            }
+
+        }
         next();
     },
     logout: (req, res) => {
         res.clearCookie("token");
+        res.clearCookie("url_pp");
         return res.redirect("/");
     }
 };

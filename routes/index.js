@@ -47,6 +47,11 @@ router.get('/admin/umkm/dashboard/kategori', middeleware.checkLoginAdmin, admin.
 router.get('/admin/umkm/dashboard/level', middeleware.checkLoginAdmin, admin.getAllLevel);
 router.get('/admin/umkm/dashboard/kecamatan', middeleware.checkLoginAdmin, admin.getAllKecamatan);
 router.get('/admin/umkm/dashboard/kabupaten', middeleware.checkLoginAdmin, admin.getAllKabupaten);
+router.get('/admin/umkm/berkas/data', middeleware.checkLoginAdmin, admin.getBerkas);
+router.delete('/admin/umkm/berkas/data', middeleware.checkLoginAdmin, admin.delBerkas);
+router.put('/admin/umkm/berkas/data', middeleware.checkLoginAdmin, admin.updateBerkas);
+
+
 
 
 
@@ -59,8 +64,15 @@ router.post('/api/user/register', user.userRegister);
 router.post('/api/user/addEntity', uploadMultiple.fields([{ name: "logousaha", maxCount: 1 }, { name: "fotoproduk", maxCount: 10 }]), user.addEntity);
 router.get('/api/user/getEntity', middeleware.checkLoginUser, user.getAllEntity);
 router.get('/api/user/showStatus/:id', middeleware.checkLoginUser, user.showStatus);
+router.get('/api/user/profile', middeleware.checkLoginUser, user.getProfile);
+router.put('/api/user/profile', middeleware.checkLoginUser, user.updateProfile);
+router.post('/api/user/pp', middeleware.checkLoginUser, upload.single('picture'), user.postPicture);
+router.get('/api/user/berkas/data', middeleware.checkLoginUser, user.berkas);
+router.post('/api/user/berkas/data', middeleware.checkLoginUser, upload.single('url_data'), user.postBerkas);
+router.delete('/api/user/berkas/data', middeleware.checkLoginUser, user.delBerkas);
 
 
+router.get('/user/dashboard', middeleware.checkLoginUser, controller.adminUserAkun);
 router.get('/user/home', middeleware.checkLoginUser, controller.adminUserHome);
 
 router.get('/logout', middeleware.logout);

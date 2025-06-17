@@ -15,8 +15,13 @@ function getCookie(name) {
     if (parts.length === 2) return parts.pop().split(";").shift();
 }
 
-
 let token = getCookie("token");
+let url_pp = getCookie("url_pp");
+url_pp = decodeURIComponent(url_pp);
+if (url_pp === "undefined" || url_pp === "null") {
+    url_pp = "/asset/lib/Kaiadmin/img/profile.jpg";
+}
+$('#profile_picture').attr('src', url_pp);
 // if (token == null) {
 //     if (location.pathname !== '/login') {
 //         window.location.href = '/login';

@@ -46,7 +46,36 @@
                                 </div>
                             </div>
                         </div>
-
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="card-title">Status Pendaftaran Badan Usaha</div>
+                                    </div>
+                                    <div class="card-body">
+                                    <div style="overflow-x:auto;" class="container mx-auto p-4">
+                                        <h2 class="text-xl font-semibold mb-4">Daftar Dokumen</h2>
+                                        
+                                        <div class="table-responsive">
+                                        <table class="table table-hover border-collapse border border-gray-400" id="dataUMKM">
+                                            <thead class="bg-gray-100">
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Username</th>
+                                                <th>Jenis File</th>
+                                                <th>Nomor</th>
+                                                <th>Catatan</th>
+                                                <th>Status</th>
+                                                <th>File</th>
+                                                <th>Aksi</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody id="table-body">
+                                            </tbody>
+                                        </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -54,6 +83,141 @@
     <%- include('../admintemp/script'); %>
         <script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
         <script src="/asset/js/admin/akun.js"></script>
+        <script>
+        let tabelDataUMKM =  $('#dataUMKM').DataTable({
+                ajax: {
+                url: "/admin/umkm/berkas/data",
+                dataSrc: "data"
+                },
+                columns: [
+                {
+                    data: null,
+                    render: function (data, type, row, meta) {
+                    return meta.row + 1;
+                    }
+                },
+                { data: "username" },
+                {
+                    data: "jenis_files",
+                    render: function (data) {
+                    return data ?? "-";
+                    }
+                },
+                { data: "nomor" },
+                {
+                    data: "catatan",
+                    render: function (data) {
+                    return data || "-";
+                    }
+                },
+                {
+                    data: "status",
+                    render: function (data) {
+                    return data == 1
+                        ? '<span class="text-green-600">Verifikasi</span>'
+                        : '<span class="text-red-600">Belum Verifikasi</span>';
+                    }
+                },
+                {
+                    data: "url_data",
+                    render: function (data) {
+                    const fileName = data.split("/").pop();
+                    return `<a href="${data}" target="_blank" class="text-blue-600 underline">${fileName}</a>`;
+                    }
+                },
+                {
+                    data: "id",
+                    render: function (id) {
+                    return `
+                    <button type="button" class="btn btn-danger" onclick="hapusData(${id})">Hapus</button> 
+                    <button type="button" class="btn btn-success" onclick="verifikasiData(${id})">Verifikasi</button>
+                    `;
+                    }
+                }
+                ]
+            });
+
+             function hapusData(id) {
+                Swal.fire({
+                    title: 'Apakah Anda Yakin?',
+                    text: "Data akan dihapus permanen!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ya, Hapus!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        fetch("/admin/umkm/berkas/data", {
+                            method: "DELETE",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({
+                                id: id
+                            })
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.status == 200) {
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Berhasil',
+                                        text: data.message
+                                    })
+                                    tabelDataUMKM.ajax.reload();
+                                } else {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Gagal',
+                                        text: data.message
+                                    })
+                                }
+                            })
+                    }
+                })
+            }
+            function verifikasiData(id){
+                Swal.fire({
+                    title: 'Apakah Anda Yakin?',
+                    text: "Data akan di Verifikasi!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ya, Verifikasi!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        fetch("/admin/umkm/berkas/data", {
+                            method: "PUT",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({
+                                id: id
+                            })
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.status == 200) {
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Berhasil',
+                                        text: data.message
+                                    })
+                             tabelDataUMKM.ajax.reload();
+                                } else {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Gagal',
+                                        text: data.message
+                                    })
+                                }
+                            })
+                    }
+                })
+            }
+        </script>
 </body>
 
 </html>

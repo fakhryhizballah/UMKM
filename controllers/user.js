@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const { Province, Regency, District, Village, Entity, Location, Product, User, Entity_Status, sequelize } = require("../models");
+const { Province, Regency, District, Village, Entity, Location, Product, User, Entity_Status, Profile, file, sequelize } = require("../models");
 const { getGeoid } = require("../helper/location");
 const { Op, where } = require("sequelize");
 const { admin } = require(".");
@@ -237,5 +237,274 @@ module.exports = {
                 message: "something went wrong!",
             });
         }
-    }
+    },
+    getProfile: async (req, res) => {
+        try {
+            let profil = await Profile.findOne({
+                where: {
+                    username: req.account.username
+                }
+            })
+            let user = await User.findOne({
+                where: {
+                    username: req.account.username
+                }
+            });
+            console.log(user);
+            console.log(profil);
+            let data = {
+                nik: user.nik,
+                fullName: user.fullName,
+                username: user.username,
+                email: user.email,
+                nowa: user.nowa,
+                alamat: '',
+                modal: '',
+            }
+            if (profil != null) {
+                data.alamat = profil.alamat;
+                data.modal = profil.modal;
+                data.url_pp = profil.url_pp;
+            }
+
+            return res.status(200).json({
+                error: false,
+                message: "Data Profile",
+                data: data
+            });
+        } catch (err) {
+            console.log(err);
+            return res.status(400).json({
+                error: true,
+                message: "something went wrong!",
+            });
+        }
+    },
+    updateProfile: async (req, res) => {
+        try {
+            let body = req.body;
+            let user = await User.findOne({
+                where: {
+                    username: req.account.username
+                }
+            })
+            if (body.NIK) {
+                body.nik = body.NIK;
+                await user.update(body)
+            }
+            if (body.nama) {
+                body.fullName = body.nama;
+                delete body.nama;
+                await user.update(body)
+            }
+            if (body.NoWa) {
+                body.nowa = body.NoWa;
+                await user.update(body)
+            }
+            if (body.email) {
+                await user.update(body)
+            }
+            if (body.modal) {
+                let profil = await Profile.findOne({
+                    where: {
+                        username: req.account.username
+                    }
+                })
+                if (profil == null) {
+                    await Profile.create({
+                        username: req.account.username,
+                        modal: body.modal
+                    })
+                } else {
+                    await profil.update({
+                        modal: body.modal
+                    })
+                }
+                delete body.modal;
+            }
+
+            if (body.alamat) {
+                let profil = await Profile.findOne({
+                    where: {
+                        username: req.account.username
+                    }
+                })
+                if (profil == null) {
+                    await Profile.create({
+                        username: req.account.username,
+                        alamat: body.alamat
+                    })
+                } else {
+                    await profil.update({
+                        alamat: body.alamat
+                    })
+                }
+                delete body.alamat;
+            }
+
+            return res.status(200).json({
+                error: false,
+                message: "Data Profile",
+                data: user
+            });
+        } catch (err) {
+            console.log(err);
+            return res.status(400).json({
+                error: true,
+                message: "something went wrong!",
+            });
+        }
+    },
+    postPicture: async (req, res) => {
+        try {
+            let body = req;
+            let path = req.file.path;
+            // console.log(body);
+            console.log(path);
+            path = path.split("public/cache/")[1];
+            body.url_pp = '/asset/cdn/' + path;
+            console.log(req.account)
+            let data = await Profile.findOne({
+                where: {
+                    username: req.account.username
+                }
+            })
+            if (!data) {
+                data = await Profile.create({
+                    username: req.account.username,
+                    url_pp: body.url_pp
+                })
+            } else {
+                await data.update({
+                    url_pp: body.url_pp
+                })
+            }
+
+            return res.status(200).json({
+                error: false,
+                message: "Data Profile",
+                // data: data
+            });
+        } catch (err) {
+            console.log(err);
+            return res.status(500).json({
+                error: true,
+                message: "something went wrong!",
+            });
+        }
+    },
+
+    // updateProfile: async (req, res) => {
+    //     try {
+    //         let body = req.body;
+
+    //         let data = await Profile.findOne({
+    //             where: {
+    //                 username: req.account.username
+    //             }
+    //         })
+    //         if (!data) {
+    //             data = await Profile.create({
+    //                 username: req.account.username,
+    //                 alamat: body.alamat,
+    //                 modal: body.modal
+    //             })
+    //         } else {
+    //             await data.update({
+    //                 alamat: body.alamat,
+    //                 modal: body.modal
+    //             })
+    //         }
+    //         return res.status(200).json({
+    //             error: false,
+    //             message: "Data Status",
+    //             data: berkas
+    //         });
+    //     } catch (err) {
+    //         console.log(err);
+    //         return res.status(400).json({
+    //             error: true,
+    //             message: "something went wrong!",
+    //         });
+    //     }
+    // },
+    berkas: async (req, res) => {
+        try {
+            let body = req.body;
+
+            let berkas = await file.findAll({
+                where: {
+                    username: req.account.username
+                }
+            })
+            return res.status(200).json({
+                error: false,
+                message: "Data Status",
+                data: berkas
+            });
+        } catch (err) {
+            console.log(err);
+            return res.status(400).json({
+                error: true,
+                message: "something went wrong!",
+            });
+        }
+    },
+    postBerkas: async (req, res) => {
+        try {
+            let body = req.body;
+            let path = req.file.path;
+            path = path.split("public/cache/")[1];
+            body.username = req.account.username
+            console.log(body);
+            console.log(path);
+
+
+            let berkas = await file.create({
+                username: body.username,
+                jenis_files: body.jenis_files,
+                catatan: body.catatan,
+                nomor: body.nomor,
+                url_data: '/asset/cdn/' + path,
+                status: '0'
+            })
+            return res.status(200).json({
+                error: false,
+                message: "Data Status",
+                data: body
+            });
+        } catch (err) {
+            console.log(err);
+            return res.status(400).json({
+                error: true,
+                message: "something went wrong!",
+            });
+        }
+    },
+    delBerkas: async (req, res) => {
+        try {
+            let body = req.body;
+
+            let berkas = await file.destroy({
+                where: {
+                    username: req.account.username,
+                    id: body.id
+                }
+            })
+            return res.status(200).json({
+                error: false,
+                status: 200,
+                message: "Data Status",
+                data: berkas
+            });
+        } catch (err) {
+            console.log(err);
+            return res.status(400).json({
+                error: true,
+                status: 400,
+                message: "something went wrong!",
+            });
+        }
+    },
+
 }

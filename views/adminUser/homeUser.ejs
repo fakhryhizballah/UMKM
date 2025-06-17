@@ -40,6 +40,28 @@
         <div class="page-inner">
           <div class="card">
             <div class="card-header">
+              <div class="card-title">Profil Badan Usaha</div>
+            </div>
+             <div class="card-body">
+              <div class="user-profile">
+              <div class="flex items-center space-x-4">
+                  <div class="relative w-20 h-20">
+                    <img
+                      src="/asset/lib/Kaiadmin/img/profile.jpg"
+                      alt="User Image"
+                      class="rounded-full w-20 h-20 object-cover cursor-pointer"
+                      id="profile_picture_user"/>
+                  </div>
+                  <div>
+                    <h4 id="user-fullname" class="text-lg font-semibold"></h4>
+                    <p id="user-name" class="text-sm text-gray-500"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header">
               <div class="card-title">Form Daftar Badan Usaha</div>
             </div>
             <form id="formRegister">
@@ -233,6 +255,7 @@
     </div>
   </div>
 
+
   <%- include('../adminUser/modalStatus'); %>
   <%- include('../adminUserTemp/script'); %>
   <script src="https://unpkg.com/jquery@3.3.1/dist/jquery.js"></script>
@@ -243,6 +266,11 @@
       <script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="/asset/js/user/sttEntity.js"></script>
+    <script>
+      $('#user-fullname').text(token.fullName);
+      $('#user-name').text(token.username);
+      $('#profile_picture_user').attr('src', url_pp);
+    </script>
 </body>
 
 </html>
