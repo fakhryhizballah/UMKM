@@ -194,24 +194,42 @@ function updateTable() {
     const catatan = item.catatan || "-";
     
     const row = `
-      <tr class="hover:bg-gray-50">
+        <tr class="hover:bg-gray-50">
         <td class="px-4 py-2 border text-center">${index + 1}</td>
         <td class="px-4 py-2 border">${item.username}</td>
         <td class="px-4 py-2 border">${jenis}</td>
         <td class="px-4 py-2 border">${item.nomor}</td>
         <td class="px-4 py-2 border">${catatan}</td>
-        <td class="px-4 py-2 border ${item.status == 1 ? "text-green-600" : "text-red-600"}">${item.status == 1 ? "Verifikasi" : "Belum Verifikasi"}</td>
+        <td class="px-4 py-2 border text-center
+          ${
+            item.status === '1'
+              ? 'text-green-600'
+              : item.status === '2'
+              ? 'text-red-600'
+              : 'text-yellow-600'
+          }">
+          ${
+            item.status === '1'
+              ? 'Terverifikasi'
+              : item.status === '2'
+              ? 'Ditolak'
+              : 'Sedang Diproses'
+          }
+        </td>
         <td class="px-4 py-2 border">
           <a href="${item.url_data}" target="_blank" class="text-blue-600 underline">
             ${fileName}
           </a>
         </td>
         <td class="px-4 py-2 border text-center">
-          <button class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600" onclick="hapusData(${item.id})">
+          <button
+            class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
+            onclick="hapusData(${item.id})"
+          >
             Hapus
           </button>
         </td>
-      </tr>
+      </tr> 
     `;
     tbody.innerHTML += row;
   });

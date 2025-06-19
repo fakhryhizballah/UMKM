@@ -113,9 +113,11 @@
                 {
                     data: "status",
                     render: function (data) {
-                    return data == 1
-                        ? '<span class="text-green-600">Verifikasi</span>'
-                        : '<span class="text-red-600">Belum Verifikasi</span>';
+                    return data == '1'
+                        ? '<span class="text-green-600">Terverifikasi</span>'
+                        : data == '2'
+                        ? '<span class="text-red-600">Ditolak</span>'
+                        : '<span class="text-yellow-600">Sedang Diproses</span>';
                     }
                 },
                 {
