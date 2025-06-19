@@ -24,7 +24,6 @@ let tabels = $('#tabelUMKM').DataTable({
         },
         { data: 'omzet' },
         { data: 'kategoriusaha' },
-        { data: 'levelusaha' },
         { data: 'Location.address' },
         {
             data: 'id', render: function (data, type, row, meta) {
