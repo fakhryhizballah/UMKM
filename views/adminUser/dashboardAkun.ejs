@@ -100,9 +100,78 @@
                         Edit
                       </button>
                     </li>
+                  </ul>
+                </div>
+                <hr>
+                <div class="profile-details mt-4">
+                  <h5 class="mb-3">Alamat Profil Saya</h5>
+                    <form class="space-y-6" id="inputAlamat">
+                      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- Provinsi -->
+                        <div>
+                          <label for="provinsi" class="block text-sm font-medium text-gray-700">Provinsi</label>
+                          <select id="provinsi" name="provinsi"
+                            class="mt-1 block w-full rounded-md border border-gray-300 bg-white px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                            required>
+                            <option value="">Pilih Provinsi</option>
+                          </select>
+                        </div>
+
+                        <!-- Kabupaten -->
+                        <div>
+                          <label for="kabupaten" class="block text-sm font-medium text-gray-700">Kabupaten</label>
+                          <select id="kabupaten" name="kabupaten"
+                            class="mt-1 block w-full rounded-md border border-gray-300 bg-white px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                            required disabled>
+                            <option value="">Pilih Kabupaten</option>
+                          </select>
+                        </div>
+
+                        <!-- Kecamatan -->
+                        <div>
+                          <label for="kecamatan" class="block text-sm font-medium text-gray-700">Kecamatan</label>
+                          <select id="kecamatan" name="kecamatan"
+                            class="mt-1 block w-full rounded-md border border-gray-300 bg-white px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                            required disabled>
+                            <option value="">Pilih Kecamatan</option>
+                          </select>
+                        </div>
+
+                        <!-- Kelurahan -->
+                        <div>
+                          <label for="kelurahan" class="block text-sm font-medium text-gray-700">Kelurahan</label>
+                          <select id="kelurahan" name="kelurahan"
+                            class="mt-1 block w-full rounded-md border border-gray-300 bg-white px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                            required disabled>
+                            <option value="">Pilih Kelurahan</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <!-- Alamat -->
+                      <div>
+                        <label for="alamat" class="block text-sm font-medium text-gray-700 mt-4">Alamat<sup class="text-red-500">*</sup></label>
+                        <input type="text" id="alamat" name="alamat"
+                          class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                          required>
+                      </div>
+
+                      <!-- Tombol Update -->
+                      <div class="pt-4 text-right">
+                        <button type="submit"
+                          class="inline-flex items-center px-6 py-2 bg-blue-600 text-white text-sm font-medium rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1">
+                          Update
+                        </button>
+                      </div>
+                    </form>
+                </div>
+                <div class="profile-details mt-4">
+                 <h5 class="mb-3">Detail Profil</h5>
+                  <ul class="list-group list-group-flush">
+                    
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                       <div>
-                        <strong>Modal:</strong>Rp. <span id="user-modal"></span>
+                        <strong>Nilai Investasi/ Modal Usaha:</strong> <span id="user-modal"></span>
                       </div>
                       <button class="btn btn-sm btn-outline-primary" onclick="editField('modal')">
                         Edit
@@ -110,9 +179,25 @@
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                       <div>
-                        <strong>Alamat:</strong> <span id="user-alamat">Jl. Contoh No. 123, Jakarta</span>
+                        <strong>Betuk Usaha:</strong> <span id="user-betuk_usaha"></span>
                       </div>
-                      <button class="btn btn-sm btn-outline-primary" onclick="editField('alamat')">
+                      <button class="btn btn-sm btn-outline-primary" onclick="editBentukUsaha('betuk_usaha')">
+                        Edit
+                      </button>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <div>
+                        <strong>Ukuran Pasar:</strong> <span id="user-ukuran_pasar"></span>
+                      </div>
+                      <button class="btn btn-sm btn-outline-primary" onclick="editUkuranPasar('ukuran_pasar')">
+                        Edit
+                      </button>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <div>
+                        <strong>Tahun Berdiri:</strong> <span id="user-tahun_berdiri"></span>
+                      </div>
+                      <button class="btn btn-sm btn-outline-primary" onclick="editField('tahun_berdiri')">
                         Edit
                       </button>
                     </li>

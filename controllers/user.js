@@ -242,7 +242,8 @@ module.exports = {
             let profil = await Profile.findOne({
                 where: {
                     username: req.account.username
-                }
+                },
+                attributes: { exclude: ['id', 'url_pp', 'createdAt', 'updatedAt'] }
             })
             let user = await User.findOne({
                 where: {
@@ -261,9 +262,7 @@ module.exports = {
                 modal: '',
             }
             if (profil != null) {
-                data.alamat = profil.alamat;
-                data.modal = profil.modal;
-                data.url_pp = profil.url_pp;
+                Object.assign(data, profil.dataValues);
             }
 
             return res.status(200).json({
@@ -303,12 +302,12 @@ module.exports = {
             if (body.email) {
                 await user.update(body)
             }
+            let profil = await Profile.findOne({
+                where: {
+                    username: req.account.username
+                }
+            })
             if (body.modal) {
-                let profil = await Profile.findOne({
-                    where: {
-                        username: req.account.username
-                    }
-                })
                 if (profil == null) {
                     await Profile.create({
                         username: req.account.username,
@@ -319,32 +318,75 @@ module.exports = {
                         modal: body.modal
                     })
                 }
-                delete body.modal;
             }
-
-            if (body.alamat) {
-                let profil = await Profile.findOne({
-                    where: {
-                        username: req.account.username
-                    }
-                })
+            if (body.tahun_berdiri) {
                 if (profil == null) {
                     await Profile.create({
                         username: req.account.username,
-                        alamat: body.alamat
+                        tahun_berdiri: parseInt(body.tahun_berdiri)
                     })
                 } else {
                     await profil.update({
-                        alamat: body.alamat
+                        tahun_berdiri: parseInt(body.tahun_berdiri)
                     })
                 }
-                delete body.alamat;
+            }
+            if (body.betuk_usaha) {
+                if (profil == null) {
+                    await Profile.create({
+                        username: req.account.username,
+                        betuk_usaha: body.betuk_usaha
+                    })
+                } else {
+                    await profil.update({
+                        betuk_usaha: body.betuk_usaha
+                    })
+                }
+            }
+            if (body.ukuran_pasar) {
+                if (profil == null) {
+                    await Profile.create({
+                        username: req.account.username,
+                        ukuran_pasar: body.ukuran_pasar
+                    })
+                } else {
+                    await profil.update({
+                        ukuran_pasar: body.ukuran_pasar
+                    })
+                }
             }
 
             return res.status(200).json({
                 error: false,
                 message: "Data Profile",
                 data: user
+            });
+        } catch (err) {
+            console.log(err);
+            return res.status(400).json({
+                error: true,
+                message: "something went wrong!",
+            });
+        }
+    },
+    updateAlamat: async (req, res) => {
+        try {
+            let body = req.body;
+            let profil = await Profile.findOne({
+                where: {
+                    username: req.account.username
+                }
+            })
+            if (profil == null) {
+                Object.assign(body, { username: req.account.username });
+                await Profile.create(body)
+            } else {
+                await profil.update(body)
+            }
+            return res.status(200).json({
+                error: false,
+                message: "Data Profile",
+                data: profil
             });
         } catch (err) {
             console.log(err);

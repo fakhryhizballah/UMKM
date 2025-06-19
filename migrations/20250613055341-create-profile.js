@@ -18,8 +18,29 @@ module.exports = {
       alamat: {
         type: Sequelize.STRING
       },
+      provinsi: {
+        type: Sequelize.STRING
+      },
+      kota: {
+        type: Sequelize.STRING
+      },
+      kecamatan: {
+        type: Sequelize.STRING
+      },
+      kelurahan: {
+        type: Sequelize.STRING
+      },
+      betuk_usaha: {
+        type: Sequelize.STRING
+      },
+      ukuran_pasar: {
+        type: Sequelize.STRING
+      },
       modal: {
         type: Sequelize.STRING
+      },
+      tahun_berdiri: {
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,

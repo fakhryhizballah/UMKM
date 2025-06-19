@@ -66,6 +66,7 @@ router.get('/api/user/getEntity', middeleware.checkLoginUser, user.getAllEntity)
 router.get('/api/user/showStatus/:id', middeleware.checkLoginUser, user.showStatus);
 router.get('/api/user/profile', middeleware.checkLoginUser, user.getProfile);
 router.put('/api/user/profile', middeleware.checkLoginUser, user.updateProfile);
+router.put('/api/user/profile/alamat', middeleware.checkLoginUser, user.updateAlamat);
 router.post('/api/user/pp', middeleware.checkLoginUser, upload.single('picture'), user.postPicture);
 router.get('/api/user/berkas/data', middeleware.checkLoginUser, user.berkas);
 router.post('/api/user/berkas/data', middeleware.checkLoginUser, upload.single('url_data'), user.postBerkas);

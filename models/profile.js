@@ -17,7 +17,14 @@ module.exports = (sequelize, DataTypes) => {
     username: DataTypes.STRING,
     url_pp: DataTypes.STRING,
     alamat: DataTypes.STRING,
-    modal: DataTypes.STRING
+    provinsi: DataTypes.STRING,
+    kota: DataTypes.STRING,
+    kecamatan: DataTypes.STRING,
+    kelurahan: DataTypes.STRING,
+    betuk_usaha: DataTypes.STRING,
+    ukuran_pasar: DataTypes.STRING,
+    modal: DataTypes.STRING,
+    tahun_berdiri: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Profile',
