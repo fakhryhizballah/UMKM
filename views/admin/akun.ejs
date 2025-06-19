@@ -179,25 +179,49 @@
             }
             function verifikasiData(id){
                 Swal.fire({
-                    title: 'Apakah Anda Yakin?',
-                    text: "Data akan di Verifikasi!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Ya, Verifikasi!'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        fetch("/admin/umkm/berkas/data", {
+                title: 'Verifikasi Data UMKM',
+                text: "Pilih tindakan yang ingin Anda lakukan dan berikan catatan jika perlu.",
+                icon: 'question',
+                showCancelButton: true,
+                showDenyButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                denyButtonColor: '#ffc107',
+                confirmButtonText: 'Verifikasi',
+                denyButtonText: 'Tolak',
+                cancelButtonText: 'Batal',
+                input: 'textarea',
+                inputPlaceholder: 'Tambahkan catatan di sini (opsional)',
+                inputAttributes: {
+                    'aria-label': 'Tambahkan catatan di sini'
+                }
+            }).then((result) => {
+                // Ambil nilai input dari textarea langsung (karena SweetAlert2 tidak mengembalikannya saat deny)
+                const catatan = Swal.getInput()?.value.trim();
+                if (result.isDenied) {
+                    if (!catatan) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Catatan wajib diisi',
+                            text: 'Silakan tambahkan catatan saat menolak.'
+                        }).then(() => {
+                            // Bisa panggil kembali Swal.fire jika ingin ulang
+                          
+                        });
+                    } else {
+                        // Lanjutkan proses penolakan
+                        console.log("Ditolak dengan catatan:", catatan);
+                          fetch("/admin/umkm/berkas/data", {
                             method: "PUT",
                             headers: {
                                 "Content-Type": "application/json"
                             },
                             body: JSON.stringify({
-                                id: id
+                                id: id,
+                                catatan: catatan,
+                                status: '2'
                             })
-                        })
-                            .then(response => response.json())
+                        }).then(response => response.json())
                             .then(data => {
                                 if (data.status == 200) {
                                     Swal.fire({
@@ -215,7 +239,37 @@
                                 }
                             })
                     }
-                })
+                } else if (result.isConfirmed) {
+                    console.log("Diverifikasi dengan catatan:", catatan);
+                     fetch("/admin/umkm/berkas/data", {
+                            method: "PUT",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({
+                                id: id,
+                                catatan: catatan,
+                                status: '1'
+                            })
+                        }).then(response => response.json())
+                            .then(data => {
+                                if (data.status == 200) {
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Berhasil',
+                                        text: data.message
+                                    })
+                             tabelDataUMKM.ajax.reload();
+                                } else {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Gagal',
+                                        text: data.message
+                                    })
+                                }
+                            })
+                }
+            });
             }
         </script>
 </body>

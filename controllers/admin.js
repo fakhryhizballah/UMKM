@@ -599,7 +599,8 @@ module.exports = {
         let body = req.body;
         try {
             let data = await file.update({
-                status: '1'
+                status: body.status,
+                catatan: body.catatan
             }, {
                 where: {
                     id: body.id

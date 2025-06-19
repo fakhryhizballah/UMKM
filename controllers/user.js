@@ -455,14 +455,10 @@ module.exports = {
             let path = req.file.path;
             path = path.split("public/cache/")[1];
             body.username = req.account.username
-            console.log(body);
-            console.log(path);
-
 
             let berkas = await file.create({
                 username: body.username,
                 jenis_files: body.jenis_files,
-                catatan: body.catatan,
                 nomor: body.nomor,
                 url_data: '/asset/cdn/' + path,
                 status: '0'

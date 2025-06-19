@@ -25,7 +25,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       status: {
-        type: Sequelize.ENUM('1', '0'),
+        type: Sequelize.ENUM('2', '1', '0'),
         defaultValue: '0',
       },
       createdAt: {

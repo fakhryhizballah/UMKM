@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     nomor: DataTypes.STRING,
     url_data: DataTypes.STRING,
     status: {
-      type: DataTypes.ENUM('1', '0'),
+      type: DataTypes.ENUM('2', '1', '0'),
       defaultValue: '0'
     },
   }, {
