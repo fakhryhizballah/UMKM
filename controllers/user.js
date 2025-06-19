@@ -80,7 +80,6 @@ module.exports = {
                 nib: body.nib,
                 omzet: body.omzet,
                 kategoriusaha: body.kategoriusaha,
-                levelusaha: body.levelusaha,
                 logousaha: '/asset/cdn/' + logousaha.filename,
                 deskripsiusaha: body.deskripsiusaha,
                 deskripsiproduk: body.deskripsiproduk,

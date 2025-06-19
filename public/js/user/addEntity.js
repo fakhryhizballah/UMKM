@@ -7,7 +7,6 @@ $("#formRegister").submit(function (event) {
     datafrom.append('nib', $('#nib').val());
     datafrom.append('omzet', $('#omzet').val());
     datafrom.append('kategoriusaha', $('#kategoriusaha').val());
-    datafrom.append('levelusaha', $('#levelusaha').val());
     datafrom.append('logousaha', $('#logousaha')[0].files[0]);
     datafrom.append('deskripsiusaha', $('#deskripsiusaha').val());
     datafrom.append('deskripsiproduk', $('#deskripsiproduk').val());

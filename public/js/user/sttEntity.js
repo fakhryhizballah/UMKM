@@ -17,7 +17,6 @@ let tableStatus = $('#tableStatus').DataTable({
         { data: 'npwp' },
         { data: 'omzet' },
         { data: 'kategoriusaha' },
-        { data: 'levelusaha' },
         { data: 'deskripsiusaha' },
         { data: 'deskripsiproduk' },
         {
