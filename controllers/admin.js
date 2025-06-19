@@ -463,16 +463,20 @@ module.exports = {
     },
     getAllLevel: async (req, res) => {
         try {
-            const data = await Entity.findAll({
+            let data = await User.findAll({
                 attributes: [
-                    'levelusaha',
-                    [Sequelize.fn('COUNT', Sequelize.col('levelusaha')), 'count']
+                    ['level', 'levelusaha'],
+                    [Sequelize.fn('COUNT', Sequelize.col('level')), 'count']
                 ],
+                group: ['level'],
                 where: {
-                    status: "accepted"
-                },
-                group: ['levelusaha'],
-            });
+                    role: "user",
+                    level: {
+                        [Op.ne]: null
+                    }
+                }
+            })
+
             return res.status(200).json({
                 error: false,
                 message: "Data Level Usaha",
