@@ -200,6 +200,12 @@ module.exports = {
         };
         res.render("adminUser/homeUser", data);
     },
+    adminUserProposal: (req, res) => {
+        let data = {
+            title: "Proposal  | WEB GIS",
+        };
+        res.render("adminUser/proposal", data);
+    },
     adminUserAkun: (req, res) => {
         let data = {
             title: "Dashboard User  | WEB GIS",

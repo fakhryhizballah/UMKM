@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <%- include('../adminUserTemp/head.ejs'); %>
+ <!-- <script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script> -->
+ <script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
+</head>
+
+<body>
+  <div class="wrapper" data-background-color="dark">
+    <%- include('../adminUserTemp/header'); %>
+
+            <div class="main-panel">
+            <div class="main-header">
+                <%- include('../adminUserTemp/main-header'); %>
+            </div>
+            <div class="container">
+                <main class="flex-1 p-8">
+                    <div class="mb-6">
+                        <h1 class="text-2xl font-semibold text-gray-800">Pengajuan Proposal</h1>
+                    </div>
+
+                    <form class="space-y-6 bg-white p-6 rounded-lg shadow-md">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Nama</label>
+                            <input type="text" class="w-full border rounded px-3 py-2" placeholder="Nama Anda" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Alamat Domisili</label>
+                            <textarea class="w-full border rounded px-3 py-2" placeholder="Kecamatan, Desa" required></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Nama Usaha</label>
+                            <input type="text" class="w-full border rounded px-3 py-2" placeholder="Nama Usaha" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Legalitas</label>
+                            <textarea class="w-full border rounded px-3 py-2" placeholder="- Nomor Induk Berusaha (NIB): Kosong"></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Kontak</label>
+                            <input type="number" class="w-full border rounded px-3 py-2" placeholder="Nomor HP / WA" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Produk</label>
+                            <input type="text" class="w-full border rounded px-3 py-2" placeholder="Jenis Produk" required>
+                        </div>
+                        </div>
+
+                        <div>
+                        <label class="block text-sm font-medium mb-1">Latar Belakang</label>
+                        <textarea rows="4" class="w-full border rounded px-3 py-2" name="latar_belakang" id="latar_belakang" placeholder="Tuliskan latar belakang..." required></textarea>
+                        </div>
+
+                        <div>
+                        <label class="block text-sm font-medium mb-1">Isi Proposal</label>
+                        <textarea rows="4" class="w-full border rounded px-3 py-2" name="isi_proposal" id="isi_proposal" placeholder="Tuliskan isi proposal..." required></textarea>
+                        </div>
+
+                        <div>
+                        <label class="block text-sm font-medium mb-1">Jenis Bantuan</label>
+                        <textarea rows="4" class="w-full border rounded px-3 py-2" name="jenis_bantuan" id="jenis_bantuan" placeholder="Tuliskan jenis bantuan yang dibutuhkan..." required></textarea>
+                        </div>
+
+                        <div>
+                            <div id="ajukan_proposal">
+                                 <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">
+                                    Ajukan Proposal
+                                 </button>
+                            </div>
+                       
+                        </div>
+                    </form>
+                </main>
+                <section class="proposal-list bg-white p-6 rounded-lg shadow-md">
+                   <div class="max-w-6xl mx-auto bg-white p-6 rounded-lg shadow-md">
+                        <h1 class="text-2xl font-bold mb-6">Daftar Proposal</h1>
+
+                        <table class="min-w-full border border-gray-300">
+                        <thead class="bg-gray-200">
+                            <tr>
+                            <th class="px-4 py-2 border">No</th>
+                            <th class="px-4 py-2 border">Nama</th>
+                            <th class="px-4 py-2 border">Nama Usaha</th>
+                            <th class="px-4 py-2 border">Kontak</th>
+                            <th class="px-4 py-2 border">Produk</th>
+                            <th class="px-4 py-2 border">Tanggal</th>
+                            <th class="px-4 py-2 border">Status</th>
+                            <th class="px-4 py-2 border">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="proposal-list">
+                            <!-- Data proposal bisa di-loop di sini -->
+                            <tr class="text-sm">
+                            <td class="px-4 py-2 border text-center">1</td>
+                            <td class="px-4 py-2 border">Pengadaan Alat Laboratorium</td>
+                            <td class="px-4 py-2 border">Budi Santoso</td>
+                            <td class="px-4 py-2 border">2025-06-15</td>
+                            <td class="px-4 py-2 border">
+                                <span class="bg-green-100 text-green-700 px-2 py-1 rounded text-xs">Disetujui</span>
+                            </td>
+                            <td class="px-4 py-2 border text-center">
+                                <button class="text-blue-600 hover:underline text-sm">Detail</button>
+                            </td>
+                            </tr>
+
+                            <!-- Tambahkan baris lain dari data dinamis -->
+                        </tbody>
+                        </table>
+                    </div>
+            
+                </section>
+      </div>
+    </div>
+  </div>
+    <!-- Modal -->
+    <div class="modal fade" id="modalRiwayat" tabindex="-1" aria-labelledby="modalRiwayatLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="modalRiwayatLabel">Status Proposal</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="modalRiwayatBody">
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+        </div>
+    </div>
+    </div>
+    <%- include('../adminUserTemp/script'); %>
+   <script>
+    const editors = {};
+    ['latar_belakang', 'isi_proposal', 'jenis_bantuan'].forEach(id => {
+       ClassicEditor
+        .create(document.querySelector('#' + id + ''), {
+        toolbar: [
+            'heading', '|',
+            'bold', 'italic', 'link', 'bulletedList', 'numberedList', '|',
+            'blockQuote', 'undo', 'redo'
+        ],
+        removePlugins: [ 'MediaEmbed']
+        }).then(newEditor => {
+        console.log('CKEditor initialized for ' + id);
+         editors[id] = newEditor;
+        })
+        .catch(error => {
+        console.error('Error initializing CKEditor:', error);
+        });
+    });
+  </script>
+  <script src="/asset/js/user/proposal.js"></script>
+  <script>
+   
+
+
+</script>
+</body>
+
+</html>

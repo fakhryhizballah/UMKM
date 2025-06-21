@@ -71,10 +71,17 @@ router.post('/api/user/pp', middeleware.checkLoginUser, upload.single('picture')
 router.get('/api/user/berkas/data', middeleware.checkLoginUser, user.berkas);
 router.post('/api/user/berkas/data', middeleware.checkLoginUser, upload.single('url_data'), user.postBerkas);
 router.delete('/api/user/berkas/data', middeleware.checkLoginUser, user.delBerkas);
+router.post('/api/user/proposal', middeleware.checkLoginUser, user.addProposal);
+router.get('/api/user/proposal/edit/:id', middeleware.checkLoginUser, user.getProposal);
+router.put('/api/user/proposal/edit/:id', middeleware.checkLoginUser, user.updateProposal);
+router.get('/api/user/proposal/list', middeleware.checkLoginUser, user.getListProposal);
+router.get('/api/user/proposal/status/:id', middeleware.checkLoginUser, user.getStatusProposal);
+router.post('/api/upload', upload.single('upload'), user.upload);
 
 
 router.get('/user/dashboard', middeleware.checkLoginUser, controller.adminUserAkun);
 router.get('/user/home', middeleware.checkLoginUser, controller.adminUserHome);
+router.get('/user/proposal', middeleware.checkLoginUser, controller.adminUserProposal);
 
 router.get('/logout', middeleware.logout);
 

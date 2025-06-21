@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
-const { Province, Regency, District, Village, Entity, Location, Product, User, Entity_Status, Profile, file, sequelize } = require("../models");
+const { Province, Regency, District, Village, Entity, Location, Product, User, Entity_Status, Profile, file, Proposal, RiwayatProposal, sequelize } = require("../models");
 const { getGeoid } = require("../helper/location");
-const { Op, where } = require("sequelize");
+const { Op, or } = require("sequelize");
 const { admin } = require(".");
 const secretKey = process.env.JWT_SECRET_KEY;
 const payload = {
@@ -543,5 +543,163 @@ module.exports = {
             });
         }
     },
+    addProposal: async (req, res) => {
+        let t = await sequelize.transaction();
+        try {
+            let body = req.body;
+            body.username = req.account.username
+            let data = await Proposal.create(body, { transaction: t })
+            await RiwayatProposal.create({
+                proposal_id: data.id,
+                status: 'Pengajuan',
+                catatan: '-',
+                tanggal: new Date()
+
+            }, { transaction: t })
+            await t.commit();
+            return res.status(200).json({
+                error: false,
+                status: 200,
+                message: "Data Status",
+                data: data
+            });
+        } catch (err) {
+            await t.rollback();
+            console.log(err);
+            return res.status(400).json({
+                error: true,
+                status: 400,
+                message: "something went wrong!",
+            });
+        }
+    },
+    getProposal: async (req, res) => {
+        try {
+            let data = await Proposal.findOne({
+                where: {
+                    username: req.account.username,
+                    id: req.params.id
+                },
+            }
+            )
+            return res.status(200).json({
+                error: false,
+                status: 200,
+                message: "Data Status",
+                data: data
+            });
+        } catch (err) {
+            console.log(err);
+            return res.status(400).json({
+                error: true,
+                status: 400,
+                message: "something went wrong!",
+            });
+        }
+    },
+    updateProposal: async (req, res) => {
+        let t = await sequelize.transaction();
+        try {
+            let body = req.body;
+            let data = await Proposal.update(body, {
+                where: {
+                    username: req.account.username,
+                    id: req.params.id
+                }
+            }, { transaction: t })
+            await RiwayatProposal.create({
+                proposal_id: data.id,
+                status: 'Proposal Diperbaharui',
+                catatan: '-',
+                tanggal: new Date()
+
+            }, { transaction: t })
+            await t.commit();
+            return res.status(200).json({
+                error: false,
+                status: 200,
+                message: "Data Status",
+                data: data
+            });
+        } catch (err) {
+            console.log(err);
+            return res.status(400).json({
+                error: true,
+                status: 400,
+                message: "something went wrong!",
+            });
+        }
+    },
+    getListProposal: async (req, res) => {
+        try {
+            let data = await Proposal.findAll({
+                where: {
+                    username: req.account.username
+                },
+                attributes: { exclude: ['username', 'latar_belakang', 'isi_proposal', 'jenis_bantuan'] },
+                include: [{
+                    model: RiwayatProposal,
+                    as: 'riwayat_proposal',
+                    order: [['tanggal', 'DESC']],
+                    attributes: ['status', 'catatan', 'tanggal'],
+                    limit: 1
+                }]
+            })
+            return res.status(200).json({
+                error: false,
+                status: 200,
+                message: "Data Status",
+                data: data
+            });
+        } catch (err) {
+            console.log(err);
+            return res.status(400).json({
+                error: true,
+                status: 400,
+                message: "something went wrong!",
+            });
+        }
+    },
+    getStatusProposal: async (req, res) => {
+        try {
+            let data = await RiwayatProposal.findAll({
+                where: {
+                    id: req.params.id
+                },
+            })
+            return res.status(200).json({
+                error: false,
+                status: 200,
+                message: "Data Status",
+                data: data
+            });
+        } catch (err) {
+            console.log(err);
+            return res.status(400).json({
+                error: true,
+                status: 400,
+                message: "something went wrong!",
+            });
+        }
+    },
+    upload: async (req, res) => {
+        try {
+            let path = req.file.path;
+            path = path.split("public/cache/")[1];
+            return res.status(200).json({
+                error: false,
+                status: 200,
+                message: "Data Status",
+                url: '/asset/cdn/' + path
+            });
+        } catch (err) {
+            console.log(err);
+            return res.status(400).json({
+                error: true,
+                status: 400,
+                message: "something went wrong!",
+            });
+        }
+    }
 
 }
