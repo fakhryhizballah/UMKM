@@ -35,6 +35,8 @@ router.get('/admin/articles', admin.articles);
 
 router.get('/admin/umkm', middeleware.checkLoginAdmin, controller.adminUMKM);
 router.get('/admin/akun', middeleware.checkLoginAdmin, controller.akunUMKM);
+router.get('/admin/proposal', middeleware.checkLoginAdmin, controller.proposalUMKM);
+router.get('/admin/proposal/:id', middeleware.checkLoginAdmin, controller.detailProposalUMKM);
 router.get('/api/admin/allUser', middeleware.checkLoginAdmin, admin.getAllUser);
 router.put('/api/admin/user/:username', middeleware.checkLoginAdmin, admin.updateUser);
 router.put('/api/admin/userlevel/:username', middeleware.checkLoginAdmin, admin.updateLevel);
@@ -50,6 +52,10 @@ router.get('/admin/umkm/dashboard/kabupaten', middeleware.checkLoginAdmin, admin
 router.get('/admin/umkm/berkas/data', middeleware.checkLoginAdmin, admin.getBerkas);
 router.delete('/admin/umkm/berkas/data', middeleware.checkLoginAdmin, admin.delBerkas);
 router.put('/admin/umkm/berkas/data', middeleware.checkLoginAdmin, admin.updateBerkas);
+router.get('/api/admin/proposal', middeleware.checkLoginAdmin, admin.getAllProposal);
+router.post('/api/admin/proposal/tinjau/:id', middeleware.checkLoginAdmin, admin.tinjauProposal);
+
+
 
 
 

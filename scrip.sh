@@ -11,3 +11,6 @@ npx sequelize-cli model:generate --name Entity --attributes username:string,name
 npx sequelize-cli model:generate --name Location --attributes entityId:integer,lat:integer,lng:integer,address:string,province:integer,regency:integer,district:integer,village:integer
 npx sequelize-cli model:generate --name Product --attributes entityId:integer,url:string
 npx sequelize-cli model:generate --name Entity_Status --attributes entityId:integer,message:string,status:string
+npx sequelize-cli model:generate --name Profile --attributes username:integer,url_pp:string,alamat:string,modal:string
+npx sequelize-cli model:generate --name Data --attributes username:integer,jenis_data:string,catatan:string,nomor:string,url_data:string,status:string
+npx sequelize-cli model:generate --name RiwayatPorposal --attributes username:integer,jenis_data:string,catatan:string,nomor:string,url_data:string,status:string

@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 const axios = require("axios");
-const { Sequelize, sequelize, User, Blog, Category, Province, Regency, District, Village, Entity, Location, Product, file, profile, Entity_Status } = require("../models");
+const { Sequelize, sequelize, User, Blog, Category, Province, Regency, District, Village, Entity, Location, Product, file, profile, Proposal, RiwayatProposal, Entity_Status } = require("../models");
 const { Op } = require("sequelize");
 const secretKey = process.env.JWT_SECRET_KEY;
 const payload = {
@@ -620,6 +620,67 @@ module.exports = {
             }
             );
         }
+    },
+    getAllProposal: async (req, res) => {
+        try {
+            let data = await Proposal.findAll({
+                attributes: { exclude: ['latar_belakang', 'isi_proposal', 'jenis_bantuan'] },
+                include: [{
+                    model: RiwayatProposal,
+                    as: 'riwayat_proposal',
+                    order: [['tanggal', 'DESC']],
+                    attributes: ['status', 'catatan', 'tanggal'],
+                    limit: 1
+                }]
+            })
+            return res.status(200).json({
+                error: false,
+                message: "Data Proposal",
+                data: data
+            });
+        } catch (err) {
+            console.log(err);
+            return res.status(400).json({
+                error: true,
+                message: "something went wrong!",
+            });
+        }
+    },
+    tinjauProposal: async (req, res) => {
+        let id = req.params.id;
+        let body = req.body;
+        try {
+            let proposal = await Proposal.findOne({
+                where: {
+                    id: id
+                }
+            })
+            if (!proposal) {
+                return res.status(400).json({
+                    error: true,
+                    message: "Proposal tidak ditemukan!",
+                });
+            }
+            await RiwayatProposal.create({
+                proposal_id: proposal.id,
+                status: body.status,
+                catatan: body.catatan,
+                tanggal: new Date()
+            })
+
+            return res.status(200).json({
+                error: false,
+                message: "Data Proposal",
+                data: proposal
+            });
+        } catch (err) {
+            console.log(err);
+            return res.status(400).json({
+                error: true,
+                message: "something went wrong!",
+            });
+        }
+
     },
     getAllUser: async (req, res) => {
         try {

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <%- include('../admintemp/head.ejs'); %>
+     <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+    <div class="wrapper" data-background-color="dark">
+        <%- include('../admintemp/header'); %>
+
+            <div class="main-panel">
+                <div class="main-header">
+                    <%- include('../admintemp/main-header'); %>
+                </div>
+                <div class="container">
+                    <div class="page-inner">
+                        <div class="page-header">
+                            <h4 class="page-title">Detail Proposal</h4>
+                        </div>
+                        <div class="page-content">
+                            <div class="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow">
+                                <div class="space-y-4 text-sm text-gray-800">
+                                    <div>
+                                        <strong class="block text-gray-600">Username</strong>
+                                        <div><%=data.username%></div>
+                                    </div>
+
+                                    <div>
+                                        <strong class="block text-gray-600">Nama</strong>
+                                        <div><%=data.nama%></div>
+                                    </div>
+
+                                    <div>
+                                        <strong class="block text-gray-600">Alamat Domisili</strong>
+                                        <div><%=data.alamat%></div>
+                                    </div>
+
+                                    <div>
+                                        <strong class="block text-gray-600">Nama Usaha</strong>
+                                        <div><%=data.nama_usaha%></div>
+                                    </div>
+
+                                    <div>
+                                        <strong class="block text-gray-600">Legalitas Usaha</strong>
+                                        <div><%=data.legalitas%></div>
+                                    </div>
+
+                                    <div>
+                                        <strong class="block text-gray-600">Kontak</strong>
+                                        <div><%=data.kontak%></div>
+                                    </div>
+
+                                    <div>
+                                        <strong class="block text-gray-600">Produk/Jasa</strong>
+                                        <div><%=data.produk%></div>
+                                    </div>
+
+                                    <div>
+                                        <strong class="block text-gray-600">Latar Belakang</strong>
+                                        <div class="prose max-w-none">
+                                         <%- data.latar_belakang %>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <strong class="block text-gray-600">Isi Proposal</strong>
+                                        <div class="prose max-w-none">
+                                         <%- data.isi_proposal%>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <strong class="block text-gray-600">Jenis Bantuan</strong>
+                                        <div class="prose max-w-none">
+                                         <%- data.jenis_bantuan%>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <strong class="block text-gray-600">Tanggal Pengajuan</strong>
+                                        <div>
+                                            <%= data.tanggal%>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                            <div class="text-right mt-4">
+                                     <!-- Button trigger modal -->
+                            <button type="button" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700" data-bs-toggle="modal" data-bs-target="#modalTinjau">
+                                Tinjau
+                            </button>
+                            </div>
+                          
+                    </div>
+                    <div class="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow mt-10">
+                        <h2 class="text-2xl font-bold">Riwayat Tinjauan</h2>
+                        <div class="mt-4">
+                            <table class="table-auto w-full">
+                                <thead>
+                                    <tr>
+                                        <th class="px-4 py-2 border">Tgl Tinjau</th>
+                                        <th class="px-4 py-2 border">Status Tinjau</th>
+                                        <th class="px-4 py-2 border">Catatan</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% riwayat.forEach((riwayat) => { %>
+                                        <tr>
+                                            <td class="px-4 py-2 border"><%= riwayat.tanggal %></td>
+                                            <td class="px-4 py-2 border"><%= riwayat.status %></td>
+                                            <td class="px-4 py-2 border"><%= riwayat.catatan %></td>
+                                        </tr>
+                                    <% }) %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="modalTinjau" tabindex="-1" aria-labelledby="modalTinjauLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTinjauLabel">Tinjau Proposal</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-item">
+                        <label class="form-label my-3">Status Tinjau<sup>*</sup></label>
+                        <select class="form-control" id="status_tinjau" name="status_tinjau" required>
+                            <option value="">Pilih Status</option>
+                            <option value="Terima">Terima</option>
+                            <option value="Tolak">Tolak</option>
+                            <option value="Pending">Pending</option>
+                        </select>
+                    </div>
+                    <div class="form-item">
+                        <label class="form-label my-3">Catatan</label>
+                        <textarea class="form-control" id="catatan" name="catatan" rows="5"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="submitTinjau" onclick="handleActionTinjau()" data-bs-dismiss="modal">Kirim</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%- include('../admintemp/script'); %>
+    <script>
+        async function handleActionTinjau() {
+            let id = "<%=data.id%>";
+            console.log(id);
+            let status = document.getElementById('status_tinjau').value;
+            let catatan = document.getElementById('catatan').value;
+            console.log(status);
+            console.log(catatan);
+            await fetch('/api/admin/proposal/tinjau/' + id, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    status: status,
+                    catatan: catatan
+                })
+            })
+            window.location.href = '/admin/proposal/' + id;
+            
+        }
+    </script>
+</body>
+
+</html>

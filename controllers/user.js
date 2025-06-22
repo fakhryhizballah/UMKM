@@ -608,7 +608,7 @@ module.exports = {
                 }
             }, { transaction: t })
             await RiwayatProposal.create({
-                proposal_id: data.id,
+                proposal_id: req.params.id,
                 status: 'Proposal Diperbaharui',
                 catatan: '-',
                 tanggal: new Date()

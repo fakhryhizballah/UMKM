@@ -7,7 +7,9 @@ const { User, Entity, Blog, Category,
     District,
     Village,
     Location,
-    Product
+    Product,
+    Proposal,
+    RiwayatProposal
 } = require("../models");
 // const { Op } = require("sequelize");
 module.exports = {
@@ -134,6 +136,56 @@ module.exports = {
             title: "Akun UMKM  | WEB GIS",
         };
         res.render("admin/akun", data);
+    },
+    proposalUMKM: (req, res) => {
+        let data = {
+            title: "Proposal UMKM  | WEB GIS",
+        };
+        res.render("admin/proposal", data);
+    },
+    detailProposalUMKM: async (req, res) => {
+        let id = req.params.id;
+        let dataProposal = await Proposal.findOne({
+            where: {
+                id: id
+            },
+            include: [{
+                model: RiwayatProposal,
+                as: 'riwayat_proposal',
+            }]
+        })
+        dataProposal.tanggal = new Date(dataProposal.dataValues.createdAt).toLocaleString('id-ID', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit'
+        });
+        let riwayat = [];
+        for (x of dataProposal.riwayat_proposal) {
+            let data = {
+                status: x.status,
+                catatan: x.catatan
+            }
+            data.tanggal = new Date(x.tanggal).toLocaleString('id-ID', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            riwayat.push(data);
+        }
+        console.log(dataProposal)
+        let data = {
+            title: "Proposal UMKM  | WEB GIS",
+            id: id,
+            data: dataProposal,
+            riwayat: riwayat
+        };
+        res.render("admin/detailproposal", data);
     },
     profilUMKM: async (req, res) => {
         let id = req.params.id;
