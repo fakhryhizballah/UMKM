@@ -185,7 +185,7 @@ module.exports = {
             data: dataProposal,
             riwayat: riwayat
         };
-        res.render("admin/detailproposal", data);
+        res.render("admin/detailProposal", data);
     },
     profilUMKM: async (req, res) => {
         let id = req.params.id;
