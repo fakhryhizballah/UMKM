@@ -7,7 +7,7 @@ const map = L.map('map').setView([-0.04169758550253827, 109.3362421903293], 10);
 //     map.setView([lat, lng], 18);
 // });
 console.log('Search Plugin:', L.Control.Search);
-fetch('https://api.spairum.my.id/api/cdn/file/geoBoundaries-IDN-ADM2.geojson')
+fetch('https://api.spairum.my.id/api/cdn/file/geoBoundaries-IDN-ADM2_simplified.geojson')
     .then(res => res.json())
     .then(data => {
         console.log(data.features);
