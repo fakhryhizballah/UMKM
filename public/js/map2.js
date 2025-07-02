@@ -6,14 +6,29 @@ const map = L.map('map').setView([-0.04169758550253827, 109.3362421903293], 10);
 //     const lng = position.coords.longitude;
 //     map.setView([lat, lng], 18);
 // });
+const kalbarRegions = [
+    "Bengkayang",
+    "Kapuas Hulu",
+    "Kayong Utara",
+    "Ketapang",
+    "Kubu Raya",
+    "Landak",
+    "Melawi",
+    "Mempawah",
+    "Sambas",
+    "Sanggau",
+    "Sekadau",
+    "Sintang",
+    "Kota Pontianak",
+    "Kota Singkawang"
+];
 console.log('Search Plugin:', L.Control.Search);
 fetch('https://api.spairum.my.id/api/cdn/file/geoBoundaries-IDN-ADM2_simplified.geojson')
     .then(res => res.json())
     .then(data => {
-        console.log(data.features);
         const geoLayer = L.geoJSON(data, {
             // filter: f => f.properties.shapeName === 'Kubu Raya',
-            // filter: f => f.properties.shapeName === 'Kota Pontianak',
+            filter: f => kalbarRegions.includes(f.properties.shapeName),
             style: {
                 color: 'red',
                 weight: 3,
@@ -24,18 +39,6 @@ fetch('https://api.spairum.my.id/api/cdn/file/geoBoundaries-IDN-ADM2_simplified.
                 layer.bindPopup(feature.properties.kabupaten);
             }
         }).addTo(map);
-
-        // Search Control
-        const searchControl = new L.Control.Search({
-            layer: geoLayer,
-            propertyName: 'shapeName',
-            marker: false,
-            moveToLocation: (latlng, title, map) => {
-                map.setView(latlng, 12);
-            }
-        });
-
-        map.addControl(searchControl);
     });
 
 // Tambahkan Tile Layer
@@ -48,16 +51,17 @@ const markers = L.markerClusterGroup();
 
 map.addLayer(markers);
 
+const dataUMKM = [];
 $.ajax({
     url: '/api/maps',
     type: 'GET',
     dataType: 'json',
     success: function (data) {
         addMarkers(data.data);
+        dataUMKM.push(...data.data);
     }
 });
 
-// function addMarkers(maker) {
 //     for (let a of maker) {
 //         let lat = a.Location.lat;
 //         let lng = a.Location.lng;
@@ -92,19 +96,19 @@ $.ajax({
 //         else if (a.kategoriusaha === 'Makanan') {
 //             icon.iconUrl = '/asset/img/marker/restaurant.png';
 //         }
-//         else if (a.kategoriusaha === 'Pakaian') {
+//         else if (a.kategoriusaha === 'Fashion') {
 //             icon.iconUrl = '/asset/img/marker/clothing-shop.png';
 //         }
-//         else if (a.kategoriusaha === 'Elektronik') {
+//         else if (a.kategoriusaha === 'Agribisnis') {
 //             icon.iconUrl = '/asset/img/marker/elektonik.png';
 //         }
 //         else if (a.kategoriusaha === 'Kerajinan') {
 //             icon.iconUrl = '/asset/img/marker/Craft.png';
 //         }
-//         else if (a.kategoriusaha === 'Aksesoris') {
+//         else if (a.kategoriusaha === 'Jasa') {
 //             icon.iconUrl = '/asset/img/marker/Accessories.png';
 //         }
-//         else if (a.kategoriusaha === 'Kosmetik') {
+//         else if (a.kategoriusaha === 'Perdagangan') {
 //             icon.iconUrl = '/asset/img/marker/salon.png';
 //         }
 //         else if (a.kategoriusaha === 'Furniture') {
@@ -126,12 +130,11 @@ filterContainer.onAdd = function () {
     const icons = {
         'Minuman': '/asset/img/marker/location-pink.png',
         'Makanan': '/asset/img/marker/location-purple.png',
-        'Pakaian': '/asset/img/marker/location-red.png',
-        'Elektronik': '/asset/img/marker/location-yellow.png',
+        'Fashion': '/asset/img/marker/location-red.png',
+        'Agribisnis': '/asset/img/marker/location-yellow.png',
         'Kerajinan': '/asset/img/marker/location-blue.png',
-        'Aksesoris': '/asset/img/marker/location-sea.png',
-        'Kosmetik': '/asset/img/marker/location-green.png',
-        'Furniture': '/asset/img/marker/location-orange.png'
+        'Jasa': '/asset/img/marker/location-sea.png',
+        'Perdagangan': '/asset/img/marker/location-green.png'
     };
 
     div.innerHTML = `
@@ -187,12 +190,11 @@ function addMarkers(maker) {
         switch (kategori) {
             case 'Minuman': iconUrl = '/asset/img/marker/location-pink.png'; break;
             case 'Makanan': iconUrl = '/asset/img/marker/location-purple.png'; break;
-            case 'Pakaian': iconUrl = '/asset/img/marker/location-red.png'; break;
-            case 'Elektronik': iconUrl = '/asset/img/marker/location-yellow.png'; break;
+            case 'Fashion': iconUrl = '/asset/img/marker/location-red.png'; break;
+            case 'Agribisnis': iconUrl = '/asset/img/marker/location-yellow.png'; break;
             case 'Kerajinan': iconUrl = '/asset/img/marker/location-blue.png'; break;
-            case 'Aksesoris': iconUrl = '/asset/img/marker/location-sea.png'; break;
-            case 'Kosmetik': iconUrl = '/asset/img/marker/location-green.png'; break;
-            case 'Furniture': iconUrl = '/asset/img/marker/location-orange.png'; break;
+            case 'Jasa': iconUrl = '/asset/img/marker/location-sea.png'; break;
+            case 'Perdagangan': iconUrl = '/asset/img/marker/location-green.png'; break;
         }
 
         const marker = L.marker([lat, lng], {
@@ -231,3 +233,84 @@ setTimeout(() => {
         });
     });
 }, 500);
+
+const searchControl = L.control({ position: 'topleft' });
+searchControl.onAdd = function (map) {
+    const div = L.DomUtil.create('div', 'leaflet-bar leaflet-control');
+
+    div.innerHTML = `
+    <div style="
+        background: white;
+        padding: 8px;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+        width: 220px;
+    ">
+        <input type="text" id="locationInput" placeholder="Cari lokasi umkm / kategori" style="
+            width: 100%;
+            padding: 6px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        "/>
+        <button id="searchBtn" style="
+            margin-top: 6px;
+            width: 100%;
+            padding: 6px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        ">Cari</button>
+    </div>
+    `;
+
+    // Agar map tidak ikut di-drag saat klik input
+    L.DomEvent.disableClickPropagation(div);
+
+    return div;
+};
+
+searchControl.addTo(map);
+
+setTimeout(() => {
+    const searchBtn = document.getElementById('searchBtn');
+    const locationInput = document.getElementById('locationInput');
+    console.log(dataUMKM);
+    let i = 0;
+    let maxI = 0;
+    if (searchBtn && locationInput) {
+        searchBtn.addEventListener('click', () => {
+            const query = locationInput.value;
+
+            // if (!query) return;
+            let locationFound = dataUMKM.filter(umkm =>
+                umkm.badanusaha.toLowerCase().includes(query.toLowerCase()) ||
+                umkm.kategoriusaha.toLowerCase().includes(query.toLowerCase())
+            );
+            if (locationFound.length === 0) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Oops...',
+                    text: 'Lokasi tidak ditemukan.',
+                });
+                return;
+            }
+            console.log(locationFound.length);
+            if (locationFound.length > 1) {
+                i += 1;
+                if (i >= locationFound.length) {
+                    i = 0;
+                }
+            } else {
+                i = 0;
+            }
+            console.log(i);
+            console.log(locationFound[i]);
+            let lat = locationFound[i].Location.lat;
+            let lng = locationFound[i].Location.lng;
+            map.setView([lat, lng], 18);
+        });
+    }
+}, 500); // Tunggu form masuk ke DOM
