@@ -27,8 +27,8 @@ fetch('https://api.spairum.my.id/api/cdn/file/geoBoundaries-IDN-ADM2_simplified.
     .then(res => res.json())
     .then(data => {
         const geoLayer = L.geoJSON(data, {
-            // filter: f => f.properties.shapeName === 'Kubu Raya',
-            filter: f => kalbarRegions.includes(f.properties.shapeName),
+            filter: f => f.properties.shapeName === 'Kubu Raya',
+            // filter: f => kalbarRegions.includes(f.properties.shapeName),
             style: {
                 color: 'red',
                 weight: 3,
