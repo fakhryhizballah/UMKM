@@ -9,6 +9,22 @@ const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attribution: ''
 }).addTo(map);
+fetch('https://api.spairum.my.id/api/cdn/file/geoBoundaries-IDN-ADM2_simplified.geojson')
+    .then(res => res.json())
+    .then(data => {
+        const geoLayer = L.geoJSON(data, {
+            filter: f => f.properties.shapeName === 'Kubu Raya',
+            style: {
+                color: 'red',
+                weight: 3,
+                fillColor: 'rgba(255,0,0,0.2)',
+                fillOpacity: 0.2
+            },
+            onEachFeature: (feature, layer) => {
+                layer.bindPopup(feature.properties.kabupaten);
+            }
+        }).addTo(map);
+    });
 
 map.on('click', function (e) {
     // Mendapatkan LatLng
