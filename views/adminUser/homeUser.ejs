@@ -47,7 +47,7 @@
               <div class="flex items-center space-x-4">
                   <div class="relative w-20 h-20">
                     <img
-                      src="/asset/lib/Kaiadmin/img/profile.jpg"
+                      src="/asset/img/profile.png"
                       alt="User Image"
                       class="rounded-full w-20 h-20 object-cover cursor-pointer"
                       id="profile_picture_user"/>
@@ -119,10 +119,8 @@
                       </select>
                     </div>
                     <div class="form-item">
-                      <label class="form-label my-3">Logo
-                        Usaha
-                        <sup>*</sup></label>
-                      <input type="file" class="form-control" id="logousaha" name="logousaha" accept="image/*" required>
+                      <label class="form-label my-3">Logo Usaha</label>
+                      <input type="file" class="form-control" id="logousaha" name="logousaha" accept="image/*">
                     </div>
                     <div class="form-item">
                       <label class="form-label my-3">Foto
@@ -149,13 +147,13 @@
                       <div class="col-md-12 col-lg-6">
                         <div class="form-item w-100">
                           <label class="form-label my-3">Latitude<sup>*</sup></label>
-                          <input type="text" id="lat" name="lat" class="form-control" disabled required>
+                          <input type="text" id="lat" name="lat" class="form-control" required>
                         </div>
                       </div>
                       <div class="col-md-12 col-lg-6">
                         <div class="form-item w-100">
                           <label class="form-label my-3">Longitude<sup>*</sup></label>
-                          <input type="text" id="lng" name="lng" class="form-control" disabled required>
+                          <input type="text" id="lng" name="lng" class="form-control" required>
                         </div>
                       </div>
                     </div>
@@ -174,14 +172,13 @@
                     <div class="form-item">
                       <label class="form-label my-3">Provinsi<sup>*</sup></label>
                       <select class="form-select" aria-label="Default select example" id="prov" name="prov" required>
-                        <option selected>Pilih
-                          Provinsi</option>
+                        <option selected value="61">Kalimantan Barat</option>
                       </select>
                     </div>
                   </div>
                   <div class="form-item">
                     <label class="form-label my-3">Kota/Kabupaten<sup>*</sup></label>
-                    <select class="form-select" aria-label="Default select example" id="kota" name="kota" required disabled>
+                    <select class="form-select" aria-label="Default select example" id="kota" name="kota" required >
                       <option selected>Pilih
                         Kota/Kabupaten</option>
                     </select>

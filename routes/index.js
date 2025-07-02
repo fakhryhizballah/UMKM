@@ -67,7 +67,7 @@ router.get('/api/maps', user.findMaps);
 
 router.post('/api/user/username', user.cekUsername);
 router.post('/api/user/register', user.userRegister);
-router.post('/api/user/addEntity', uploadMultiple.fields([{ name: "logousaha", maxCount: 1 }, { name: "fotoproduk", maxCount: 10 }]), user.addEntity);
+router.post('/api/user/addEntity', uploadMultiple.fields([{ name: "logousaha", maxCount: 1 }, { name: "fotoproduk", maxCount: 15 }]), user.addEntity);
 router.get('/api/user/getEntity', middeleware.checkLoginUser, user.getAllEntity);
 router.get('/api/user/showStatus/:id', middeleware.checkLoginUser, user.showStatus);
 router.get('/api/user/profile', middeleware.checkLoginUser, user.getProfile);

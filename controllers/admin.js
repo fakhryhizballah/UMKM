@@ -384,7 +384,12 @@ module.exports = {
                 }, {
                     model: Product,
                     attributes: ['id', 'url']
-                }]
+                    }, {
+                        model: User,
+                        as: 'user',
+                        attributes: ['fullName', 'email', 'noWa']
+                    }
+                ]
             })
             return res.status(200).json({
                 error: false,

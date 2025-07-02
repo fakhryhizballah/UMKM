@@ -29,6 +29,26 @@ map.on('click', function (e) {
     // Tambahkan marker di lokasi klik
     L.marker([lat, lng]).addTo(map).bindPopup(`Lat: ${lat}, Lng: ${lng}`).openPopup();
 });
+
+$('#lat, #lng').on('change', function () {
+    const lat = parseFloat($('#lat').val());
+    const lng = parseFloat($('#lng').val());
+
+    if (isNaN(lat) || isNaN(lng)) {
+        return;
+    }
+
+    // Hapus marker sebelumnya
+    map.eachLayer(function (layer) {
+        if (layer instanceof L.Marker) {
+            map.removeLayer(layer);
+        }
+    });
+
+    // Tambahkan marker di lokasi yang diinputkan
+    L.marker([lat, lng]).addTo(map).bindPopup(`Lat: ${lat}, Lng: ${lng}`).openPopup();
+    map.setView([lat, lng], 18);
+});
 // map.on('click', function (e) {
 //     var lat = e.latlng.lat;
 //     var lng = e.latlng.lng;

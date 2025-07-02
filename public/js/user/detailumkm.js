@@ -1,16 +1,20 @@
-console.log("test");
 console.log("id" + id);
 $.ajax({
     url: '/api/admin/umkm/getEntity/' + id,
     type: "GET",
     success: function (data) {
         data = data.data;
+        console.log(data);
+        $('#fotoProduk').empty();
+        let first = true;
         for (let x of data.Products) {
-            $('#fotoProduk').append(`<div class="carousel-item active">
+            $('#fotoProduk').append(`
+            <div class="carousel-item${first ? ' active' : ''}">
             <img src="${x.url}" class="d-block w-100"
             alt="Foto Produk 1" style="height: 200px; object-fit: cover;"
             id="fotoProduk${x.id}" name="fotoProduk${x.id}">
             </div>`);
+            first = false;
         }
         $('#logoUsaha').attr('src', data.logousaha);
         $('#namaUsaha').text(data.badanusaha);
@@ -19,7 +23,7 @@ $.ajax({
         $('#namaValue').text(data.user.fullName);
         $('#noWaValue').text(data.user.noWa);
         $('#emailValue').text(data.user.email);
-        $('#omzetValue').text(data.omzet);
+        // $('#omzetValue').text(data.omzet);
         $('#alamatValue').text(data.Location.address);
         $('#alamatValue').text(data.Location.address);
         $('#deskripsiUsahaValue').text(data.deskripsiusaha);

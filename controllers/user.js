@@ -14,6 +14,10 @@ module.exports = {
         console.log(body.prov);
         // let path = req.file;
         const logousaha = req.files["logousaha"] ? req.files["logousaha"][0] : null;
+        let logousahaPath = '/asset/img/default_logo.png';
+        if (logousaha != null) {
+            logousahaPath = '/asset/cdn/' + logousaha.filename;
+        }
         // Multiple files
         const fotoproduk = req.files["fotoproduk"] || [];
 
@@ -80,7 +84,7 @@ module.exports = {
                 nib: body.nib,
                 omzet: body.omzet,
                 kategoriusaha: body.kategoriusaha,
-                logousaha: '/asset/cdn/' + logousaha.filename,
+                logousaha: logousahaPath,
                 deskripsiusaha: body.deskripsiusaha,
                 deskripsiproduk: body.deskripsiproduk,
                 status: "pending"

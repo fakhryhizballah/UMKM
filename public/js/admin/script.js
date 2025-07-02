@@ -19,7 +19,7 @@ let token = getCookie("token");
 let url_pp = getCookie("url_pp");
 url_pp = decodeURIComponent(url_pp);
 if (url_pp === "undefined" || url_pp === "null") {
-    url_pp = "/asset/lib/Kaiadmin/img/profile.jpg";
+    url_pp = "/asset/img/profile.png";
 }
 $('#profile_picture').attr('src', url_pp);
 // if (token == null) {
