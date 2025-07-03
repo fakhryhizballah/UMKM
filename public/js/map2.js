@@ -171,9 +171,13 @@ function addMarkers(maker) {
         const lat = a.Location.lat;
         const lng = a.Location.lng;
         const kategori = a.kategoriusaha;
+        let random = Math.floor(Math.random() * 1000000);
+        let id64 = btoa(a.id);
+        let key = btoa(random + "#" + id64 + "#" + btoa(Math.floor(Math.random() * 1000)));
+        console.log(key);
 
         const routeLink = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
-        const profileLink = `/umkm/entity/${btoa(a.id)}`;
+        const profileLink = `/umkm/entity/${key}`;
 
         const popupContent = `
       <h3>${a.badanusaha}</h3><br>
