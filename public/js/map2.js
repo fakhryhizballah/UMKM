@@ -103,7 +103,7 @@ $.ajax({
 //             icon.iconUrl = '/asset/img/marker/elektonik.png';
 //         }
 //         else if (a.kategoriusaha === 'Kerajinan') {
-//             icon.iconUrl = '/asset/img/marker/Craft.png';
+//             icon.iconUrl = '/asset/img/marker/kerajian.png';
 //         }
 //         else if (a.kategoriusaha === 'Jasa') {
 //             icon.iconUrl = '/asset/img/marker/Accessories.png';
@@ -132,7 +132,7 @@ filterContainer.onAdd = function () {
         'Makanan': '/asset/img/marker/restaurant.png',
         'Fashion': '/asset/img/marker/clothing-shop.png',
         'Agribisnis': '/asset/img/marker/agribisnis.png',
-        'Kerajinan': '/asset/img/marker/Craft.png',
+        'Kerajinan': '/asset/img/marker/kerajian.png',
         'Jasa': '/asset/img/marker/customer-service.png',
         'Perdagangan': '/asset/img/marker/trade.png',
     };
@@ -196,7 +196,7 @@ function addMarkers(maker) {
             case 'Makanan': iconUrl = '/asset/img/marker/restaurant.png'; break;
             case 'Fashion': iconUrl = '/asset/img/marker/clothing-shop.png'; break;
             case 'Agribisnis': iconUrl = '/asset/img/marker/agribisnis.png'; break;
-            case 'Kerajinan': iconUrl = '/asset/img/marker/Craft.png'; break;
+            case 'Kerajinan': iconUrl = '/asset/img/marker/kerajian.png'; break;
             case 'Jasa': iconUrl = '/asset/img/marker/customer-service.png'; break;
             case 'Perdagangan': iconUrl = '/asset/img/marker/trade.png'; break;
         }
