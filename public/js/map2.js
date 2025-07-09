@@ -131,7 +131,7 @@ filterContainer.onAdd = function () {
         'Minuman': '/asset/img/marker/miuman.png',
         'Makanan': '/asset/img/marker/restaurant.png',
         'Fashion': '/asset/img/marker/clothing-shop.png',
-        'Agribisnis': '/asset/img/marker/glasshouse.png',
+        'Agribisnis': '/asset/img/marker/agribisnis.png',
         'Kerajinan': '/asset/img/marker/Craft.png',
         'Jasa': '/asset/img/marker/customer-service.png',
         'Perdagangan': '/asset/img/marker/trade.png',
@@ -195,7 +195,7 @@ function addMarkers(maker) {
             case 'Minuman': iconUrl = '/asset/img/marker/miuman.png'; break;
             case 'Makanan': iconUrl = '/asset/img/marker/restaurant.png'; break;
             case 'Fashion': iconUrl = '/asset/img/marker/clothing-shop.png'; break;
-            case 'Agribisnis': iconUrl = '/asset/img/marker/glasshouse.png'; break;
+            case 'Agribisnis': iconUrl = '/asset/img/marker/agribisnis.png'; break;
             case 'Kerajinan': iconUrl = '/asset/img/marker/Craft.png'; break;
             case 'Jasa': iconUrl = '/asset/img/marker/customer-service.png'; break;
             case 'Perdagangan': iconUrl = '/asset/img/marker/trade.png'; break;
