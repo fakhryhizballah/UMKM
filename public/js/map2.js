@@ -128,13 +128,13 @@ const filterContainer = L.control({ position: 'topright' });
 filterContainer.onAdd = function () {
     const div = L.DomUtil.create('div', 'filter-container leaflet-bar');
     const icons = {
-        'Minuman': '/asset/img/marker/location-pink.png',
-        'Makanan': '/asset/img/marker/location-purple.png',
-        'Fashion': '/asset/img/marker/location-red.png',
-        'Agribisnis': '/asset/img/marker/location-yellow.png',
-        'Kerajinan': '/asset/img/marker/location-blue.png',
-        'Jasa': '/asset/img/marker/location-sea.png',
-        'Perdagangan': '/asset/img/marker/location-green.png'
+        'Minuman': '/asset/img/marker/miuman.png',
+        'Makanan': '/asset/img/marker/restaurant.png',
+        'Fashion': '/asset/img/marker/clothing-shop.png',
+        'Agribisnis': '/asset/img/marker/glasshouse.png',
+        'Kerajinan': '/asset/img/marker/Craft.png',
+        'Jasa': '/asset/img/marker/customer-service.png',
+        'Perdagangan': '/asset/img/marker/trade.png',
     };
 
     div.innerHTML = `
@@ -192,13 +192,13 @@ function addMarkers(maker) {
 
         let iconUrl = '/asset/img/marker/location-pin.png';
         switch (kategori) {
-            case 'Minuman': iconUrl = '/asset/img/marker/location-pink.png'; break;
-            case 'Makanan': iconUrl = '/asset/img/marker/location-purple.png'; break;
-            case 'Fashion': iconUrl = '/asset/img/marker/location-red.png'; break;
-            case 'Agribisnis': iconUrl = '/asset/img/marker/location-yellow.png'; break;
-            case 'Kerajinan': iconUrl = '/asset/img/marker/location-blue.png'; break;
-            case 'Jasa': iconUrl = '/asset/img/marker/location-sea.png'; break;
-            case 'Perdagangan': iconUrl = '/asset/img/marker/location-green.png'; break;
+            case 'Minuman': iconUrl = '/asset/img/marker/miuman.png'; break;
+            case 'Makanan': iconUrl = '/asset/img/marker/restaurant.png'; break;
+            case 'Fashion': iconUrl = '/asset/img/marker/clothing-shop.png'; break;
+            case 'Agribisnis': iconUrl = '/asset/img/marker/glasshouse.png'; break;
+            case 'Kerajinan': iconUrl = '/asset/img/marker/Craft.png'; break;
+            case 'Jasa': iconUrl = '/asset/img/marker/customer-service.png'; break;
+            case 'Perdagangan': iconUrl = '/asset/img/marker/trade.png'; break;
         }
 
         const marker = L.marker([lat, lng], {
