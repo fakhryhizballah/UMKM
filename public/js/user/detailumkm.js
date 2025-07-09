@@ -6,15 +6,19 @@ $.ajax({
         data = data.data;
         console.log(data);
         $('#fotoProduk').empty();
-        let first = true;
+        let isFirst = true;
         for (let x of data.Products) {
+            const activeClass = isFirst ? 'active' : '';
+
             $('#fotoProduk').append(`
-            <div class="carousel-item${first ? ' active' : ''}">
-            <img src="${x.url}" class="d-block w-100"
-            alt="Foto Produk 1" style="height: 200px; object-fit: cover;"
-            id="fotoProduk${x.id}" name="fotoProduk${x.id}">
-            </div>`);
-            first = false;
+            <div class="carousel-item ${activeClass}">
+              <img src="${x.url}" class="d-block w-100"
+              alt="Foto Produk" style="height: auto; max-height: 400px; object-fit: contain;"
+              id="fotoProduk${x.id}" name="fotoProduk${x.id}">
+            </div>
+          `);
+
+            isFirst = false;
         }
         $('#logoUsaha').attr('src', data.logousaha);
         $('#namaUsaha').text(data.badanusaha);
