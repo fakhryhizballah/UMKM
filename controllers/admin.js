@@ -627,6 +627,8 @@ module.exports = {
         }
     },
     getAllProposal: async (req, res) => {
+        let tanggal = new Date();
+        tanggal.setMonth(tanggal.getMonth() - 1);
         try {
             let data = await Proposal.findAll({
                 attributes: { exclude: ['latar_belakang', 'isi_proposal', 'jenis_bantuan'] },
@@ -636,7 +638,13 @@ module.exports = {
                     order: [['tanggal', 'DESC']],
                     attributes: ['status', 'catatan', 'tanggal'],
                     limit: 1
-                }]
+                }],
+                order: [['createdAt', 'DESC']],
+                where: {
+                    createdAt: {
+                        [Op.between]: [new Date(tanggal.getFullYear(), tanggal.getMonth(), 1), new Date(tanggal.getFullYear(), tanggal.getMonth() + 1, 0)]
+                    }
+                }
             })
             return res.status(200).json({
                 error: false,
