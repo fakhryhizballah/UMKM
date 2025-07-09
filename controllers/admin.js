@@ -627,8 +627,9 @@ module.exports = {
         }
     },
     getAllProposal: async (req, res) => {
-        let tanggal = new Date();
-        tanggal.setMonth(tanggal.getMonth() - 1);
+        const currentDate = new Date();
+        const oneMonthAgo = new Date(currentDate);
+        oneMonthAgo.setMonth(currentDate.getMonth() - 1);
         try {
             let data = await Proposal.findAll({
                 attributes: { exclude: ['latar_belakang', 'isi_proposal', 'jenis_bantuan'] },
@@ -637,15 +638,12 @@ module.exports = {
                     as: 'riwayat_proposal',
                     order: [['tanggal', 'DESC']],
                     attributes: ['status', 'catatan', 'tanggal'],
-                    limit: 1
+                    limit: 1,
                 }],
                 order: [['createdAt', 'DESC']],
-                where: {
-                    createdAt: {
-                        [Op.between]: [new Date(tanggal.getFullYear(), tanggal.getMonth(), 1), new Date(tanggal.getFullYear(), tanggal.getMonth() + 1, 0)]
-                    }
-                }
+
             })
+            data = filterProposal(data)
             return res.status(200).json({
                 error: false,
                 message: "Data Proposal",
@@ -782,4 +780,26 @@ module.exports = {
         }
     }   
 
+}
+function filterProposal(data) {
+    const currentDate = new Date();
+    const oneMonthAgo = new Date(currentDate);
+    oneMonthAgo.setMonth(currentDate.getMonth() - 1);
+
+    return data.filter(item => {
+        // Cek apakah ada riwayat_proposal
+        if (!item.riwayat_proposal || item.riwayat_proposal.length === 0) {
+            return true; // Tetap simpan jika tidak ada riwayat
+        }
+
+        const firstHistory = item.riwayat_proposal[0];
+        const proposalDate = new Date(firstHistory.tanggal);
+
+        // Hapus jika status adalah "Pengajuan" DAN tanggal lebih dari 1 bulan
+        if (firstHistory.status === "Pengajuan" && proposalDate < oneMonthAgo) {
+            return false; // Hapus item ini
+        }
+
+        return true; // Simpan item ini
+    });
 }
