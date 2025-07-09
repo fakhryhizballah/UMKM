@@ -134,7 +134,7 @@ filterContainer.onAdd = function () {
         'Agribisnis': '/asset/img/marker/agribisnis.png',
         'Kerajinan': '/asset/img/marker/kerajian.png',
         'Jasa': '/asset/img/marker/customer-service.png',
-        'Perdagangan': '/asset/img/marker/trade.png',
+        'Perdagangan': '/asset/img/marker/perdagangan.png',
     };
 
     div.innerHTML = `
@@ -198,7 +198,7 @@ function addMarkers(maker) {
             case 'Agribisnis': iconUrl = '/asset/img/marker/agribisnis.png'; break;
             case 'Kerajinan': iconUrl = '/asset/img/marker/kerajian.png'; break;
             case 'Jasa': iconUrl = '/asset/img/marker/customer-service.png'; break;
-            case 'Perdagangan': iconUrl = '/asset/img/marker/trade.png'; break;
+            case 'Perdagangan': iconUrl = '/asset/img/marker/perdagangan.png'; break;
         }
 
         const marker = L.marker([lat, lng], {
