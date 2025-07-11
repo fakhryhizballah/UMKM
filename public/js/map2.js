@@ -93,7 +93,7 @@ $.ajax({
 //         if (a.kategoriusaha === 'Minuman') {
 //             icon.iconUrl = '/asset/img/marker/miuman.png';
 //         }
-//         else if (a.kategoriusaha === 'Makanan') {
+//         else if (a.kategoriusaha === 'Kuliner') {
 //             icon.iconUrl = '/asset/img/marker/restaurant.png';
 //         }
 //         else if (a.kategoriusaha === 'Fashion') {
@@ -128,8 +128,7 @@ const filterContainer = L.control({ position: 'topright' });
 filterContainer.onAdd = function () {
     const div = L.DomUtil.create('div', 'filter-container leaflet-bar');
     const icons = {
-        'Minuman': '/asset/img/marker/miuman.png',
-        'Makanan': '/asset/img/marker/restaurant.png',
+        'Kuliner': '/asset/img/marker/restaurant.png',
         'Fashion': '/asset/img/marker/clothing-shop.png',
         'Agribisnis': '/asset/img/marker/agribisnis.png',
         'Kerajinan': '/asset/img/marker/kerajian.png',
@@ -192,8 +191,7 @@ function addMarkers(maker) {
 
         let iconUrl = '/asset/img/marker/location-pin.png';
         switch (kategori) {
-            case 'Minuman': iconUrl = '/asset/img/marker/miuman.png'; break;
-            case 'Makanan': iconUrl = '/asset/img/marker/restaurant.png'; break;
+            case 'Kuliner': iconUrl = '/asset/img/marker/restaurant.png'; break;
             case 'Fashion': iconUrl = '/asset/img/marker/clothing-shop.png'; break;
             case 'Agribisnis': iconUrl = '/asset/img/marker/agribisnis.png'; break;
             case 'Kerajinan': iconUrl = '/asset/img/marker/kerajian.png'; break;
